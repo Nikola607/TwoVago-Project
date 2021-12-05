@@ -1,0 +1,940 @@
+<!------ Include the above in your HEAD tag ---------->
+
+<!------ Include the above in your HEAD tag ---------->
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    <link rel="stylesheet" id="main-css-preload"
+          href="https://t-cf.bstatic.com/static/css/main_cft.iq_ltr/8ea031ef54004c3bfbeb5e9f0aaa52493f7b1766.css"
+          data-main-css="1"/>
+    <title>Offer - twovago</title>
+    <link rel="stylesheet" href="/css/navigation_styles.css">
+    <link rel="icon" href="/images/twovago-icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/offer_styles.css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+<div class="nav-wrapper" style="height:70px;">
+    <header th:replace="fragments/commons.html::nav"></header>
+</div>
+<div class="container">
+    <div class="card">
+        <div th:object="${offer}" class="container-fliud">
+            <div class="wrapper row">
+                <div class="preview col-md-6 col-xs-12">
+
+                    <div class="preview-pic tab-content">
+                        <div class="tab-pane active" id="pic-1"><img class="pop"
+                                                                     th:src="*{getPicture()}"/>
+                        </div>
+                    </div>
+
+                    <ul class="preview-thumbnail nav nav-tabs">
+                        <li class="active"><a data-target="#pic-1" data-toggle="tab"><img
+                                th:src="*{getPicture()}"/></a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="details col-md-6 d-none">
+                    <h3 th:text="*{offerName}" class="product-title"></h3>
+                    <div class="rating">
+                        <div class="stars">
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                        </div>
+                        <span th:text="*{city}" class="review-no"></span>
+                        <span th:text="*{category}" class="review-no"></span>
+                    </div>
+                    <p th:text="*{description}" class="product-description"></p>
+                    <h4 class="price">current price:<span>€</span>
+                        <span th:text="*{price}"></span>
+                        <span> / night</span></h4>
+                    <th:block th:if="*{canUpdate}">
+                        <a class="btn btn-link" th:href="@{/offers/{id}/edit(id=*{id})}">Update</a>
+                    </th:block>
+                    <th:block th:if="*{canDelete}">
+                        <form th:action="@{/offers/{id}(id=*{id})}" th:method="delete">
+                            <input type="submit" class="btn btn-link" value="Delete"/>
+                        </form>
+                    </th:block>
+                </div>
+                <!-- <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong>
+                    </p> -->
+                <!-- <h5 class="sizes">sizes:
+                        <span class="size" data-toggle="tooltip" title="small">s</span>
+                        <span class="size" data-toggle="tooltip" title="medium">m</span>
+                        <span class="size" data-toggle="tooltip" title="large">l</span>
+                        <span class="size" data-toggle="tooltip" title="xtra large">xl</span>
+                    </h5> -->
+                <!-- <h5 class="colors">colors:
+                        <span class="color orange not-available" data-toggle="tooltip" title="Not In store"></span>
+                        <span class="color green"></span>
+                        <span class="color blue"></span>
+                    </h5> -->
+                <!-- <div class="action">
+                        <button class="add-to-cart btn btn-default" type="button">add to cart</button>
+                    </div> -->
+            </div>
+            <div class="wdpt">
+                <h2>What do people think?</h2>
+            </div>
+
+        </div>
+        <div class="reviews">
+            <div class="container">
+                <div class="row">
+                    <div class="avg-rat-rat-br">
+                        <div class="col-sm-3">
+                            <div class="rating-block">
+                                <h4>Average user rating</h4>
+                                <h3 class="bold padding-bottom-7">4.3 <small style="color: white;">/ 5</small></h3>
+                                <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                </button>
+                                <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                </button>
+                                <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                </button>
+                                <button type="button" class="btn btn-default btn-grey btn-sm"
+                                        aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                </button>
+                                <!-- <button type="button" class="btn btn-default btn-grey btn-sm"
+                                    aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                </button> -->
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <h4>Rating breakdown</h4>
+                            <div class="pull-left">
+                                <div class="pull-left" style="width:35px; line-height:1;">
+                                    <div style="height:9px; margin:5px 0;">5 <span
+                                            class="glyphicon glyphicon-star"></span></div>
+                                </div>
+                                <div class="pull-left" style="width:180px;">
+                                    <div class="progress" style="height:9px; margin:8px 0;">
+                                        <div class="progress-bar progress-bar-success" role="progressbar"
+                                             aria-valuenow="5" aria-valuemin="0" aria-valuemax="5"
+                                             style="width: 1000%">
+                                            <span class="sr-only">80% Complete (danger)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pull-right" style="margin-left:10px;">1</div>
+                            </div>
+                            <div class="pull-left">
+                                <div class="pull-left" style="width:35px; line-height:1;">
+                                    <div style="height:9px; margin:5px 0;">4 <span
+                                            class="glyphicon glyphicon-star"></span></div>
+                                </div>
+                                <div class="pull-left" style="width:180px;">
+                                    <div class="progress" style="height:9px; margin:8px 0;">
+                                        <div class="progress-bar progress-bar-primary" role="progressbar"
+                                             aria-valuenow="4" aria-valuemin="0" aria-valuemax="5"
+                                             style="width: 80%">
+                                            <span class="sr-only">80% Complete (danger)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pull-right" style="margin-left:10px;">1</div>
+                            </div>
+                            <div class="pull-left">
+                                <div class="pull-left" style="width:35px; line-height:1;">
+                                    <div style="height:9px; margin:5px 0;">3 <span
+                                            class="glyphicon glyphicon-star"></span></div>
+                                </div>
+                                <div class="pull-left" style="width:180px;">
+                                    <div class="progress" style="height:9px; margin:8px 0;">
+                                        <div class="progress-bar progress-bar-info" role="progressbar"
+                                             aria-valuenow="3" aria-valuemin="0" aria-valuemax="5"
+                                             style="width: 60%">
+                                            <span class="sr-only">80% Complete (danger)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pull-right" style="margin-left:10px;">0</div>
+                            </div>
+                            <div class="pull-left">
+                                <div class="pull-left" style="width:35px; line-height:1;">
+                                    <div style="height:9px; margin:5px 0;">2 <span
+                                            class="glyphicon glyphicon-star"></span></div>
+                                </div>
+                                <div class="pull-left" style="width:180px;">
+                                    <div class="progress" style="height:9px; margin:8px 0;">
+                                        <div class="progress-bar progress-bar-warning" role="progressbar"
+                                             aria-valuenow="2" aria-valuemin="0" aria-valuemax="5"
+                                             style="width: 40%">
+                                            <span class="sr-only">80% Complete (danger)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pull-right" style="margin-left:10px;">0</div>
+                            </div>
+                            <div class="pull-left">
+                                <div class="pull-left" style="width:35px; line-height:1;">
+                                    <div style="height:9px; margin:5px 0;">1 <span
+                                            class="glyphicon glyphicon-star"></span></div>
+                                </div>
+                                <div class="pull-left" style="width:180px;">
+                                    <div class="progress" style="height:9px; margin:8px 0;">
+                                        <div class="progress-bar progress-bar-danger" role="progressbar"
+                                             aria-valuenow="1" aria-valuemin="0" aria-valuemax="5"
+                                             style="width: 20%">
+                                            <span class="sr-only">80% Complete (danger)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pull-right" style="margin-left:10px;">0</div>
+                            </div>
+                        </div>
+                        <div class="more-info">
+                            <div class="hotel-facilities__most-popular bui-spacer--larger">
+                                <div class="hp_desc_important_facilities clearfix hp_desc_important_facilities--bui "
+                                     data-et-view="goal:hp_d_property_popular_facilities_seen">
+                                    <div data-et-view="adUAVYCIFZKZPHcXLYSfDcdWTNJeaILYJO:1"></div>
+                                    <h3 class="hp-description-sub-header">
+                                        Most popular facilities
+                                    </h3>
+                                    <div class="important_facility  " data-name-en="Swimming pool">
+                                        <svg class="bk-icon -iconset-pool hp__important_facility_icon" height="20"
+                                             width="20" viewBox="0 0 128 128" role="presentation" aria-hidden="true"
+                                             focusable="false">
+                                            <path
+                                                    d="M8.7 79.2a3.8 3.8 0 0 1 5.5-1.3c21 15 34.5 9 50 2.2 14.5-6.5 30.8-13.7 53.6-1.4a4.5 4.5 0 0 1 1.8 5.9 3.9 3.9 0 0 1-5.4 2c-19.5-10.7-32.8-4.8-47 1.5-8.7 3.9-17.6 7.9-28 7.9A50 50 0 0 1 9.9 85.2a4.6 4.6 0 0 1-1.2-6zm109 15.5c-22.7-12.4-39-5-53.5 1.4-15.5 6.9-29 12.9-50-2.2a3.8 3.8 0 0 0-5.6 1.3 4.6 4.6 0 0 0 1.2 6A50 50 0 0 0 39.3 112c10.3 0 19.2-4 28-7.9 14-6.3 27.4-12.2 46.9-1.6a3.9 3.9 0 0 0 5.4-2 4.5 4.5 0 0 0-1.8-5.8zM100 56a12 12 0 1 0-12-12 12 12 0 0 0 12 12zM64.2 72c7.2-3.3 15.2-7 23.8-8.2 0 0-4-8.8-6.8-13.9l-18-29.2c-2.5-4.3-7.5-6-13.5-3.6L27.9 26a6.2 6.2 0 0 0-3.5 7.8 6 6 0 0 0 8 3.4L50 29.7a4 4 0 0 1 5 1.7l6 13.2L24 72c17.6 9.8 26.3 6.3 40.3 0z"/>
+                                        </svg>
+                                        2 swimming pools
+                                    </div>
+                                    <div class="
+                                    important_facility  " data-name-en="Free Parking">
+                                        <svg class="bk-icon -iconset-parking_sign hp__important_facility_icon"
+                                             height="20" width="20" viewBox="0 0 128 128" role="presentation"
+                                             aria-hidden="true" focusable="false">
+                                            <path d="M70.8 44H58v16h12.8a8 8 0 0 0 0-16z"/>
+                                            <path
+                                                    d="M108 8H20A12 12 0 0 0 8 20v88a12 12 0 0 0 12 12h88a12 12 0 0 0 12-12V20a12 12 0 0 0-12-12zM70 76H58v24H42V28h28a24 24 0 0 1 0 48z"/>
+                                        </svg>
+                                        Free parking
+                                    </div>
+                                    <div class="
+                                    important_facility  " data-name-en="Free WiFi Internet Access Included">
+                                        <svg class="bk-icon -iconset-wifi hp__important_facility_icon" height="20"
+                                             width="20" viewBox="0 0 128 128" role="presentation" aria-hidden="true"
+                                             focusable="false">
+                                            <circle cx="64" cy="100" r="12"/>
+                                            <path
+                                                    d="M118.3 32.7A94.9 94.9 0 0 0 64 16 94.9 94.9 0 0 0 9.7 32.7a4 4 0 1 0 4.6 6.6A87 87 0 0 1 64 24a87 87 0 0 1 49.7 15.3 4 4 0 1 0 4.6-6.6zM87.7 68.4a54.9 54.9 0 0 0-47.4 0 4 4 0 0 0 3.4 7.2 47 47 0 0 1 40.6 0 4 4 0 0 0 3.4-7.2z"/>
+                                            <path
+                                                    d="M104 50.5a81.2 81.2 0 0 0-80 0 4 4 0 0 0 4 7 73.2 73.2 0 0 1 72 0 4 4 0 0 0 4-7z"/>
+                                        </svg>
+                                        Free WiFi
+                                    </div>
+                                    <div class="
+                                    important_facility  " data-name-en="Family Rooms">
+                                        <svg class="bk-icon -iconset-family hp__important_facility_icon" height="20"
+                                             width="20" viewBox="0 0 128 128" role="presentation" aria-hidden="true"
+                                             focusable="false">
+                                            <path
+                                                    d="M18 18a10 10 0 1 1 10 10 10 10 0 0 1-10-10zm26 16s-9.8-2-16-2-16 2-16 2c-4 1-4.3 3.4-4 6l3.4 30.5a4.3 4.3 0 0 0 1.3 2.6l1.8 1.8a4.3 4.3 0 0 1 1.3 2.7l3.6 38.4a4.4 4.4 0 0 0 4.5 4h8.2a4.4 4.4 0 0 0 4.5-4L40 77.6a4.3 4.3 0 0 1 1.3-2.7l1.9-1.8a4.3 4.3 0 0 0 1.2-2.6L48 40c.3-2.6.1-5-3.9-6zm20 23a8 8 0 1 0-8-8 8 8 0 0 0 8 8zm11.2 2.4A73.6 73.6 0 0 0 64 58a73.6 73.6 0 0 0-11.2 1.4c-2.8.7-3 2.3-2.7 4.1l2.3 21a3 3 0 0 0 1 1.9l1.2 1.2a3 3 0 0 1 1 2l2.4 27.7a3.1 3.1 0 0 0 3.1 2.7H67a3.1 3.1 0 0 0 3.1-2.8l2.5-27.7a3 3 0 0 1 1-1.9l1.2-1.2a3 3 0 0 0 .9-1.8l2.4-21c.2-1.9 0-3.5-2.8-4.2zM100 28a10 10 0 1 0-10-10 10 10 0 0 0 10 10zm16 6s-9.8-2-16-2-16 2-16 2c-4 1-4.3 3.4-4 6l3.4 30.5a4.3 4.3 0 0 0 1.3 2.6l1.8 1.8a4.3 4.3 0 0 1 1.3 2.7l3.6 38.4a4.4 4.4 0 0 0 4.5 4h8.2a4.4 4.4 0 0 0 4.4-4l3.6-38.4a4.3 4.3 0 0 1 1.3-2.7l1.8-1.8a4.3 4.3 0 0 0 1.3-2.6L120 40c.3-2.6.1-5-3.9-6z"/>
+                                        </svg>
+                                        Family rooms
+                                    </div>
+                                    <div class="
+                                    important_facility  " data-name-en="Coffee&#47;Tea maker">
+                                        <svg class="bk-icon -iconset-tea_maker hp__important_facility_icon"
+                                             height="20" width="20" viewBox="0 0 128 128" role="presentation"
+                                             aria-hidden="true" focusable="false">
+                                            <path
+                                                    d="M102 40H58a2 2 0 0 0-2 2v46a8 8 0 0 0 8 8h32a8 8 0 0 0 8-8v-.4a20 20 0 0 0 0-39.2V42a2 2 0 0 0-2-2zM73 80a4 4 0 0 1-8 0V56a4 4 0 0 1 8 0zm39-12a12 12 0 0 1-8 11.3V56.7a12 12 0 0 1 8 11.3zm0-60H16a8 8 0 0 0-8 8v96a8 8 0 0 0 8 8h96a8 8 0 0 0 8-8v-6a2 2 0 0 0-2-2H50a2 2 0 0 1-2-2V26a2 2 0 0 1 2-2h14v8h32v-8h22a2 2 0 0 0 2-2v-6a8 8 0 0 0-8-8zM28 64a8 8 0 1 1 8-8 8 8 0 0 1-8 8zm0-24a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/>
+                                        </svg>
+                                        Tea/Coffee Maker in All Rooms
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hotel-facilities__list">
+                                <div class="bui-spacer--large">
+                                    <div class="hotel-facilities-group" data-section-id="13">
+                                        <div
+                                                class="bui-title bui-title--strong_1 bui-spacer--medium hotel-facilities-group__title">
+                                            <div class="bui-title__text hotel-facilities-group__title-text">
+                                                    <span role="presentation"
+                                                          class="bui-icon bui-icon--medium hotel-facilities-group__icon"><svg
+                                                            class="bk-icon -streamline-garden" height="16" width="16"
+                                                            viewBox="0 0 24 24" role="presentation" aria-hidden="true"
+                                                            focusable="false">
+                                                            <path
+                                                                    d="M5.361 6.625a6.75 6.75 0 0 0 7.413 6.721 6.93 6.93 0 0 0 6.087-6.988V2.125a1.5 1.5 0 0 0-2.4-1.2l-1.8 1.35h.9L13.461.7c-.8-.6-1.9-.6-2.7 0l-2.1 1.575h.9l-1.8-1.35a1.5 1.5 0 0 0-2.4 1.2v4.5zm1.5 0v-4.5l1.8 1.35c.267.2.633.2.9 0l2.1-1.575a.75.75 0 0 1 .9 0l2.1 1.575c.267.2.633.2.9 0l1.8-1.35V6.37a5.428 5.428 0 0 1-4.754 5.486 5.25 5.25 0 0 1-5.746-5.23zm4.5 6v10.5a.75.75 0 0 0 1.5 0v-10.5a.75.75 0 0 0-1.5 0zm-5.359 3.811c1.473.285 2.458 1.077 2.374 1.51-.084.432-1.292.801-2.765.516-1.473-.284-2.458-1.076-2.374-1.51.084-.432 1.292-.8 2.765-.516zm.285-1.473c-2.179-.42-4.233.206-4.523 1.705-.29 1.5 1.383 2.846 3.562 3.267 2.179.421 4.233-.205 4.523-1.705.29-1.5-1.383-2.846-3.562-3.267zm14.699 2.09c.084.434-.9 1.226-2.374 1.51-1.473.285-2.681-.084-2.765-.516-.084-.433.9-1.226 2.374-1.51 1.473-.285 2.681.084 2.765.517zm1.473-.284c-.29-1.5-2.344-2.126-4.523-1.705-2.178.421-3.851 1.767-3.562 3.267.29 1.5 2.344 2.126 4.523 1.705 2.179-.42 3.852-1.767 3.562-3.267z"/>
+                                                        </svg></span> Outdoors
+                                            </div>
+                                        </div>
+                                        <ul
+                                                class="bui-list bui-list--text bui-list--icon hotel-facilities-group__list">
+                                            <li
+                                                    class="bui-list__item bui-spacer--medium hotel-facilities-group__list-item">
+                                                    <span class="bui-list__icon" role="presentation">
+                                                        <svg class="bk-icon -streamline-checkmark" height="14"
+                                                             width="14" viewBox="0 0 128 128" role="presentation"
+                                                             aria-hidden="true" focusable="false">
+                                                            <path
+                                                                    d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"/>
+                                                        </svg>
+                                                    </span>
+                                                <div class="bui-list__body">
+                                                    <div class="bui-list__description">
+                                                        Picnic area
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li
+                                                    class="bui-list__item bui-spacer--medium hotel-facilities-group__list-item">
+                                                    <span class="bui-list__icon" role="presentation">
+                                                        <svg class="bk-icon -streamline-checkmark" height="14"
+                                                             width="14" viewBox="0 0 128 128" role="presentation"
+                                                             aria-hidden="true" focusable="false">
+                                                            <path
+                                                                    d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"/>
+                                                        </svg>
+                                                    </span>
+                                                <div class="bui-list__body">
+                                                    <div class="bui-list__description">
+                                                        Outdoor furniture
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li
+                                                    class="bui-list__item bui-spacer--medium hotel-facilities-group__list-item">
+                                                    <span class="bui-list__icon" role="presentation">
+                                                        <svg class="bk-icon -streamline-checkmark" height="14"
+                                                             width="14" viewBox="0 0 128 128" role="presentation"
+                                                             aria-hidden="true" focusable="false">
+                                                            <path
+                                                                    d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"/>
+                                                        </svg>
+                                                    </span>
+                                                <div class="bui-list__body">
+                                                    <div class="bui-list__description">
+                                                        Sun deck
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li
+                                                    class="bui-list__item bui-spacer--medium hotel-facilities-group__list-item">
+                                                    <span class="bui-list__icon" role="presentation">
+                                                        <svg class="bk-icon -streamline-checkmark" height="14"
+                                                             width="14" viewBox="0 0 128 128" role="presentation"
+                                                             aria-hidden="true" focusable="false">
+                                                            <path
+                                                                    d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"/>
+                                                        </svg>
+                                                    </span>
+                                                <div class="bui-list__body">
+                                                    <div class="bui-list__description">
+                                                        Terrace
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li
+                                                    class="bui-list__item bui-spacer--medium hotel-facilities-group__list-item">
+                                                    <span class="bui-list__icon" role="presentation">
+                                                        <svg class="bk-icon -streamline-checkmark" height="14"
+                                                             width="14" viewBox="0 0 128 128" role="presentation"
+                                                             aria-hidden="true" focusable="false">
+                                                            <path
+                                                                    d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"/>
+                                                        </svg>
+                                                    </span>
+                                                <div class="bui-list__body">
+                                                    <div class="bui-list__description">
+                                                        Garden
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div data-et-view="eWfaIDJNMTfTLKGBfFDYQMALZWYC:1"></div>
+                                <div data-et-view="eWfaIDJNMTfTLKGBfFDYQMALZWYC:6"></div>
+                                <div data-et-view="eWfaIDJNMTfTLKGBfFDYQMALZWYC:1"></div>
+                                <div data-et-view="eWfaIDJNMTfTLKGBfFDYQMALZWYC:5"></div>
+                                <div class="bui-spacer--large">
+                                    <div class="hotel-facilities-group" data-section-id="2">
+                                        <div
+                                                class="bui-title bui-title--strong_1 bui-spacer--medium hotel-facilities-group__title">
+                                            <div class="bui-title__text hotel-facilities-group__title-text">
+                                                    <span role="presentation"
+                                                          class="bui-icon bui-icon--medium hotel-facilities-group__icon"><svg
+                                                            class="bk-icon -streamline-sports_golf" height="16"
+                                                            width="16" viewBox="0 0 24 24" role="presentation"
+                                                            aria-hidden="true" focusable="false">
+                                                            <path
+                                                                    d="M6 11.019V.75l-1.085.67L9.13 3.53a.236.236 0 0 1-.001-.422l-1.965.982a.75.75 0 0 0 .67 1.342l1.966-.983a1.264 1.264 0 0 0 .001-2.26L5.585.079A.75.75 0 0 0 4.5.75v10.269a.75.75 0 0 0 1.5 0zm16.506-5.116l-2.165 16.6h-2.716a1.125 1.125 0 0 1 0-2.25c.535 0 1.051.201 1.445.564l1.623 1.487a.75.75 0 1 0 1.014-1.106l-1.622-1.486a3.632 3.632 0 0 0-2.46-.959 2.625 2.625 0 0 0 0 5.25h2.717a1.5 1.5 0 0 0 1.487-1.306l2.165-16.6a.75.75 0 1 0-1.488-.194zM12 21a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm1.5 0A2.25 2.25 0 1 0 9 21a2.25 2.25 0 0 0 4.5 0zM8.204 9.022c3.054.187 5.296 1.57 5.296 2.978 0 1.538-2.631 3-6 3s-6-1.462-6-3c.055-.68.475-1.34 1.12-1.704a.75.75 0 0 0-.74-1.306 3.721 3.721 0 0 0-1.878 2.952C0 14.604 3.412 16.5 7.5 16.5c4.087 0 7.5-1.896 7.5-4.5 0-2.42-2.96-4.246-6.704-4.476a.75.75 0 1 0-.092 1.498z"/>
+                                                        </svg></span><span> Activities
+                                            </div>
+                                        </div>
+                                        <ul
+                                                class="bui-list bui-list--text bui-list--icon hotel-facilities-group__list">
+                                            <li
+                                                    class="bui-list__item bui-spacer--medium hotel-facilities-group__list-item">
+                                                    <span class="bui-list__icon" role="presentation">
+                                                        <svg class="bk-icon -streamline-checkmark" height="14"
+                                                             width="14" viewBox="0 0 128 128" role="presentation"
+                                                             aria-hidden="true" focusable="false">
+                                                            <path
+                                                                    d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"/>
+                                                        </svg>
+                                                    </span>
+                                                <div class="bui-list__body">
+                                                    <div class="bui-list__description">
+                                                        Beach
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <div data-et-view="eWfaIDJNMTfTLKGBfFDYQMALZWYC:1"></div>
+                                            <div data-et-view="eWfaIDJNMTfTLKGBfFDYQMALZWYC:6"></div>
+                                            <li
+                                                    class="bui-list__item bui-spacer--medium hotel-facilities-group__list-item">
+                                                    <span class="bui-list__icon" role="presentation">
+                                                        <svg class="bk-icon -streamline-checkmark" height="14"
+                                                             width="14" viewBox="0 0 128 128" role="presentation"
+                                                             aria-hidden="true" focusable="false">
+                                                            <path
+                                                                    d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"/>
+                                                        </svg>
+                                                    </span>
+                                                <div class="bui-list__body">
+                                                    <div class="bui-list__description">
+                                                        Badminton equipment
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <div data-et-view="eWfaIDJNMTfTLKGBfFDYQMALZWYC:1"></div>
+                                            <div data-et-view="eWfaIDJNMTfTLKGBfFDYQMALZWYC:5"></div>
+                                            <li
+                                                    class="bui-list__item bui-spacer--medium hotel-facilities-group__list-item">
+                                                    <span class="bui-list__icon" role="presentation">
+                                                        <svg class="bk-icon -streamline-checkmark" height="14"
+                                                             width="14" viewBox="0 0 128 128" role="presentation"
+                                                             aria-hidden="true" focusable="false">
+                                                            <path
+                                                                    d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"/>
+                                                        </svg>
+                                                    </span>
+                                                <div class="bui-list__body">
+                                                    <div class="bui-list__description">
+                                                        Tennis equipment
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li
+                                                    class="bui-list__item bui-spacer--medium hotel-facilities-group__list-item">
+                                                    <span class="bui-list__icon" role="presentation">
+                                                        <svg class="bk-icon -streamline-checkmark" height="14"
+                                                             width="14" viewBox="0 0 128 128" role="presentation"
+                                                             aria-hidden="true" focusable="false">
+                                                            <path
+                                                                    d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"/>
+                                                        </svg>
+                                                    </span>
+                                                <div class="bui-list__body">
+                                                    <div class="bui-list__description">
+                                                        Kids&#39; club
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li
+                                                    class="bui-list__item bui-spacer--medium hotel-facilities-group__list-item">
+                                                    <span class="bui-list__icon" role="presentation">
+                                                        <svg class="bk-icon -streamline-checkmark" height="14"
+                                                             width="14" viewBox="0 0 128 128" role="presentation"
+                                                             aria-hidden="true" focusable="false">
+                                                            <path
+                                                                    d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"/>
+                                                        </svg>
+                                                    </span>
+                                                <div class="bui-list__body">
+                                                    <div class="bui-list__description">
+                                                        Mini golf
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li
+                                                    class="bui-list__item bui-spacer--medium hotel-facilities-group__list-item">
+                                                    <span class="bui-list__icon" role="presentation">
+                                                        <svg class="bk-icon -streamline-checkmark" height="14"
+                                                             width="14" viewBox="0 0 128 128" role="presentation"
+                                                             aria-hidden="true" focusable="false">
+                                                            <path
+                                                                    d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"/>
+                                                        </svg>
+                                                    </span>
+                                                <div class="bui-list__body">
+                                                    <div class="bui-list__description">
+                                                        Snorkeling
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li
+                                                    class="bui-list__item bui-spacer--medium hotel-facilities-group__list-item">
+                                                    <span class="bui-list__icon" role="presentation">
+                                                        <svg class="bk-icon -streamline-checkmark" height="14"
+                                                             width="14" viewBox="0 0 128 128" role="presentation"
+                                                             aria-hidden="true" focusable="false">
+                                                            <path
+                                                                    d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"/>
+                                                        </svg>
+                                                    </span>
+                                                <div class="bui-list__body">
+                                                    <div class="bui-list__description">
+                                                        Horseback riding
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li
+                                                    class="bui-list__item bui-spacer--medium hotel-facilities-group__list-item">
+                                                    <span class="bui-list__icon" role="presentation">
+                                                        <svg class="bk-icon -streamline-checkmark" height="14"
+                                                             width="14" viewBox="0 0 128 128" role="presentation"
+                                                             aria-hidden="true" focusable="false">
+                                                            <path
+                                                                    d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"/>
+                                                        </svg>
+                                                    </span>
+                                                <div class="bui-list__body">
+                                                    <div class="bui-list__description">
+                                                        Diving
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li
+                                                    class="bui-list__item bui-spacer--medium hotel-facilities-group__list-item">
+                                                    <span class="bui-list__icon" role="presentation">
+                                                        <svg class="bk-icon -streamline-checkmark" height="14"
+                                                             width="14" viewBox="0 0 128 128" role="presentation"
+                                                             aria-hidden="true" focusable="false">
+                                                            <path
+                                                                    d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"/>
+                                                        </svg>
+                                                    </span>
+                                                <div class="bui-list__body">
+                                                    <div class="bui-list__description">
+                                                        Cycling
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li
+                                                    class="bui-list__item bui-spacer--medium hotel-facilities-group__list-item">
+                                                    <span class="bui-list__icon" role="presentation">
+                                                        <svg class="bk-icon -streamline-checkmark" height="14"
+                                                             width="14" viewBox="0 0 128 128" role="presentation"
+                                                             aria-hidden="true" focusable="false">
+                                                            <path
+                                                                    d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"/>
+                                                        </svg>
+                                                    </span>
+                                                <div class="bui-list__body">
+                                                    <div class="bui-list__description">
+                                                        Hiking
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li
+                                                    class="bui-list__item bui-spacer--medium hotel-facilities-group__list-item">
+                                                    <span class="bui-list__icon" role="presentation">
+                                                        <svg class="bk-icon -streamline-checkmark" height="14"
+                                                             width="14" viewBox="0 0 128 128" role="presentation"
+                                                             aria-hidden="true" focusable="false">
+                                                            <path
+                                                                    d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"/>
+                                                        </svg>
+                                                    </span>
+                                                <div class="bui-list__body">
+                                                    <div class="bui-list__description">
+                                                        Canoeing
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li
+                                                    class="bui-list__item bui-spacer--medium hotel-facilities-group__list-item">
+                                                    <span class="bui-list__icon" role="presentation">
+                                                        <svg class="bk-icon -streamline-checkmark" height="14"
+                                                             width="14" viewBox="0 0 128 128" role="presentation"
+                                                             aria-hidden="true" focusable="false">
+                                                            <path
+                                                                    d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"/>
+                                                        </svg>
+                                                    </span>
+                                                <div class="bui-list__body">
+                                                    <div class="bui-list__description">
+                                                        Windsurfing
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li
+                                                    class="bui-list__item bui-spacer--medium hotel-facilities-group__list-item">
+                                                    <span class="bui-list__icon" role="presentation">
+                                                        <svg class="bk-icon -streamline-checkmark" height="14"
+                                                             width="14" viewBox="0 0 128 128" role="presentation"
+                                                             aria-hidden="true" focusable="false">
+                                                            <path
+                                                                    d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"/>
+                                                        </svg>
+                                                    </span>
+                                                <div class="bui-list__body">
+                                                    <div class="bui-list__description">
+                                                        Ping-pong
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li
+                                                    class="bui-list__item bui-spacer--medium hotel-facilities-group__list-item">
+                                                    <span class="bui-list__icon" role="presentation">
+                                                        <svg class="bk-icon -streamline-checkmark" height="14"
+                                                             width="14" viewBox="0 0 128 128" role="presentation"
+                                                             aria-hidden="true" focusable="false">
+                                                            <path
+                                                                    d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"/>
+                                                        </svg>
+                                                    </span>
+                                                <div class="bui-list__body">
+                                                    <div class="bui-list__description">
+                                                        Game room
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li
+                                                    class="bui-list__item bui-spacer--medium hotel-facilities-group__list-item">
+                                                    <span class="bui-list__icon" role="presentation">
+                                                        <svg class="bk-icon -streamline-checkmark" height="14"
+                                                             width="14" viewBox="0 0 128 128" role="presentation"
+                                                             aria-hidden="true" focusable="false">
+                                                            <path
+                                                                    d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"/>
+                                                        </svg>
+                                                    </span>
+                                                <div class="bui-list__body">
+                                                    <div class="bui-list__description">
+                                                        Fishing
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li
+                                                    class="bui-list__item bui-spacer--medium hotel-facilities-group__list-item">
+                                                    <span class="bui-list__icon" role="presentation">
+                                                        <svg class="bk-icon -streamline-checkmark" height="14"
+                                                             width="14" viewBox="0 0 128 128" role="presentation"
+                                                             aria-hidden="true" focusable="false">
+                                                            <path
+                                                                    d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"/>
+                                                        </svg>
+                                                    </span>
+                                                <div class="bui-list__body">
+                                                    <div class="bui-list__description">
+                                                        Tennis court
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="bui-spacer--large">
+                                    <div class="hotel-facilities-group" data-section-id="7">
+                                        <div
+                                                class="bui-title bui-title--strong_1 bui-spacer--medium hotel-facilities-group__title">
+                                            <div class="bui-title__text hotel-facilities-group__title-text">
+                                                    <span role="presentation"
+                                                          class="bui-icon bui-icon--medium hotel-facilities-group__icon"><svg
+                                                            class="bk-icon -streamline-food" height="16" width="16"
+                                                            viewBox="0 0 24 24" role="presentation" aria-hidden="true"
+                                                            focusable="false">
+                                                            <path
+                                                                    d="M5.999.75v22.5a.75.75 0 0 0 1.5 0V.75a.75.75 0 0 0-1.5 0zm3 0V7.5a2.259 2.259 0 0 1-2.252 2.25 2.258 2.258 0 0 1-2.248-2.252V.75a.75.75 0 0 0-1.5 0V7.5a3.76 3.76 0 0 0 3.748 3.75 3.76 3.76 0 0 0 3.752-3.748V.75a.75.75 0 0 0-1.5 0zm6.75 15.75h3c1.183.046 2.203-.9 2.25-2.111a2.22 2.22 0 0 0 0-.168c-.25-6.672-.828-9.78-3.231-13.533a1.508 1.508 0 0 0-2.77.81V23.25a.75.75 0 0 0 1.5 0V1.503c0 .003.001 0 .003 0a.006.006 0 0 1 .008.002c2.21 3.45 2.75 6.354 2.99 12.773v.053a.696.696 0 0 1-.721.67L15.749 15a.75.75 0 0 0 0 1.5z"/>
+                                                        </svg></span> Food &amp; Drink
+                                            </div>
+                                        </div>
+                                        <ul
+                                                class="bui-list bui-list--text bui-list--icon hotel-facilities-group__list">
+                                            <li
+                                                    class="bui-list__item bui-spacer--medium hotel-facilities-group__list-item">
+                                                    <span class="bui-list__icon" role="presentation">
+                                                        <svg class="bk-icon -streamline-checkmark" height="14"
+                                                             width="14" viewBox="0 0 128 128" role="presentation"
+                                                             aria-hidden="true" focusable="false">
+                                                            <path
+                                                                    d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"/>
+                                                        </svg>
+                                                    </span>
+                                                <div class="bui-list__body">
+                                                    <div class="bui-list__description">
+                                                        Coffee house on site
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <div data-et-view="eWfaIDJNMTfTLKGBfFDYQMALZTYO:1"></div>
+                                            <div data-et-view="eWfaIDJNMTfTLKGBfFDYQMALZTYO:8"></div>
+                                            <li
+                                                    class="bui-list__item bui-spacer--medium hotel-facilities-group__list-item">
+                                                    <span class="bui-list__icon" role="presentation">
+                                                        <svg class="bk-icon -streamline-checkmark" height="14"
+                                                             width="14" viewBox="0 0 128 128" role="presentation"
+                                                             aria-hidden="true" focusable="false">
+                                                            <path
+                                                                    d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"/>
+                                                        </svg>
+                                                    </span>
+                                                <div class="bui-list__body">
+                                                    <div class="bui-list__description">
+                                                        Chocolate/Cookies
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <div data-et-view="eWfaIDJNMTfTLKGBfFDYQMALZTYO:1"></div>
+                                            <div data-et-view="eWfaIDJNMTfTLKGBfFDYQMALZTYO:7"></div>
+                                            <li
+                                                    class="bui-list__item bui-spacer--medium hotel-facilities-group__list-item">
+                                                    <span class="bui-list__icon" role="presentation">
+                                                        <svg class="bk-icon -streamline-checkmark" height="14"
+                                                             width="14" viewBox="0 0 128 128" role="presentation"
+                                                             aria-hidden="true" focusable="false">
+                                                            <path
+                                                                    d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"/>
+                                                        </svg>
+                                                    </span>
+                                                <div class="bui-list__body">
+                                                    <div class="bui-list__description">
+                                                        Fruit
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <div data-et-view="eWfaIDJNMTfTLKGBfFDYQMALZTYO:1"></div>
+                                            <div data-et-view="eWfaIDJNMTfTLKGBfFDYQMALZTYO:6"></div>
+                                            <li
+                                                    class="bui-list__item bui-spacer--medium hotel-facilities-group__list-item">
+                                                    <span class="bui-list__icon" role="presentation">
+                                                        <svg class="bk-icon -streamline-checkmark" height="14"
+                                                             width="14" viewBox="0 0 128 128" role="presentation"
+                                                             aria-hidden="true" focusable="false">
+                                                            <path
+                                                                    d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"/>
+                                                        </svg>
+                                                    </span>
+                                                <div class="bui-list__body">
+                                                    <div class="bui-list__description">
+                                                        Bottle of water
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <div data-et-view="eWfaIDJNMTfTLKGBfFDYQMALZWYC:1"></div>
+                                            <div data-et-view="eWfaIDJNMTfTLKGBfFDYQMALZWYC:9"></div>
+                                            <li
+                                                    class="bui-list__item bui-spacer--medium hotel-facilities-group__list-item">
+                                                    <span class="bui-list__icon" role="presentation">
+                                                        <svg class="bk-icon -streamline-checkmark" height="14"
+                                                             width="14" viewBox="0 0 128 128" role="presentation"
+                                                             aria-hidden="true" focusable="false">
+                                                            <path
+                                                                    d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"/>
+                                                        </svg>
+                                                    </span>
+                                                <div class="bui-list__body">
+                                                    <div class="bui-list__description">
+                                                        Wine/Champagne
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li
+                                                    class="bui-list__item bui-spacer--medium hotel-facilities-group__list-item">
+                                                    <span class="bui-list__icon" role="presentation">
+                                                        <svg class="bk-icon -streamline-checkmark" height="14"
+                                                             width="14" viewBox="0 0 128 128" role="presentation"
+                                                             aria-hidden="true" focusable="false">
+                                                            <path
+                                                                    d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"/>
+                                                        </svg>
+                                                    </span>
+                                                <div class="bui-list__body">
+                                                    <div class="bui-list__description">
+                                                        Kid-friendly buffet
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li
+                                                    class="bui-list__item bui-spacer--medium hotel-facilities-group__list-item">
+                                                    <span class="bui-list__icon" role="presentation">
+                                                        <svg class="bk-icon -streamline-checkmark" height="14"
+                                                             width="14" viewBox="0 0 128 128" role="presentation"
+                                                             aria-hidden="true" focusable="false">
+                                                            <path
+                                                                    d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"/>
+                                                        </svg>
+                                                    </span>
+                                                <div class="bui-list__body">
+                                                    <div class="bui-list__description">
+                                                        Kids&#39; meals
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-7">
+                        <hr/>
+                        <div class="review-block">
+                            <div class="row">
+                                <div class="col-sm-person">
+                                    <img src="/images/avatar.png" class="img-rounded">
+                                    <div class="review-block-name"><a href="#">pesho</a></div>
+                                    <div class="review-block-date">January 29, 2016<br/>1 day ago</div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="review-block-rate">
+                                        <button type="button" class="btn btn-warning btn-xs"
+                                                aria-label="Left Align">
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-warning btn-xs"
+                                                aria-label="Left Align">
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-warning btn-xs"
+                                                aria-label="Left Align">
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-grey btn-xs"
+                                                aria-label="Left Align">
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        </button>
+                                        <!-- <button type="button" class="btn btn-default btn-grey btn-xs"
+                                            aria-label="Left Align">
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        </button> -->
+                                    </div>
+                                    <div class="review-block-title">A really nice place for a vacation</div>
+                                    <div class="review-block-description">Lorem ipsum dolor sit amet consectetur
+                                        adipisicing elit. Quas distinctio laudantium rem neque fugiat reiciendis
+                                        voluptatum animi voluptas perferendis illo vitae iste temporibus cum vero,
+                                        accusantium, laborum ab doloribus a.
+                                    </div>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-person">
+                                    <img src="/images/avatar.png" class="img-rounded">
+                                    <div class="review-block-name"><a href="#">viksata</a></div>
+                                    <div class="review-block-date">January 29, 2016<br/>1 day ago</div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="review-block-rate">
+                                        <button type="button" class="btn btn-warning btn-xs"
+                                                aria-label="Left Align">
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-warning btn-xs"
+                                                aria-label="Left Align">
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-warning btn-xs"
+                                                aria-label="Left Align">
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-grey btn-xs"
+                                                aria-label="Left Align">
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-grey btn-xs"
+                                                aria-label="Left Align">
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        </button>
+                                    </div>
+                                    <div class="review-block-title">A pretty cool place to visit</div>
+                                    <div class="review-block-description">Lorem ipsum dolor sit, amet consectetur
+                                        adipisicing elit. Hic nostrum molestiae rem consequatur laborum et fugiat
+                                        placeat quaerat voluptatum assumenda quos maiores possimus perspiciatis
+                                        tempore delectus corporis, expedita ipsam vero.
+                                    </div>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-person">
+                                    <img src="/images/avatar.png" class="img-rounded">
+                                    <div class="review-block-name"><a href="#">ivan</a></div>
+                                    <div class="review-block-date">January 29, 2016<br/>1 day ago</div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="review-block-rate">
+                                        <button type="button" class="btn btn-warning btn-xs"
+                                                aria-label="Left Align">
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-warning btn-xs"
+                                                aria-label="Left Align">
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-warning btn-xs"
+                                                aria-label="Left Align">
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-grey btn-xs"
+                                                aria-label="Left Align">
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-grey btn-xs"
+                                                aria-label="Left Align">
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        </button>
+                                    </div>
+                                    <div class="review-block-title">Would recommend</div>
+                                    <div class="review-block-description">Lorem ipsum dolor sit amet consectetur
+                                        adipisicing elit. Quam, natus cupiditate, labore atque est enim quasi hic
+                                        sint consequuntur in doloremque saepe exercitationem porro vitae error
+                                        deleniti corporis non ab.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span
+                        class="sr-only">Close</span></button>
+                <img src="" class="imagepreview" style="width: 100%;">
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

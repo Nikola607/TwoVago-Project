@@ -1,0 +1,99 @@
+@keyframes intro {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes introName {
+  from {transform: translate(-100%,0)}
+  to {transform: translate(0,0);}
+}
+
+@keyframes introDescription {
+  from {transform: translate(100%,0)}
+  to {transform: translate(0,0)}
+}
+
+body {
+  animation: intro 1s;
+  animation-fill-mode: forwards;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgb(48,48,48);
+  background: linear-gradient(90deg,
+    rgba(48,48,48,1) 25%,
+    rgba(32,32,32,1) 75%);
+  background-size: cover;
+  text-align: center;
+  color: white;
+  overflow-x: hidden;
+}
+
+#wrapper {
+  border-top: 5px solid #400d67;
+  padding: 1%;
+  padding-left: 5%;
+  padding-right: 5%;
+  margin: 1%;
+  margin-left: 25%;
+  margin-right: 25%;
+}
+
+#profile {
+  width: 250px;
+  height: 250px;
+  background-color: grey;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px 30px rgba(0,0,0,0.2);
+  transition: box-shadow 200ms, transform 200ms;
+  animation: FadeIn 1s cubic-bezier(0.65, 0.05, 0.36, 1);
+}
+
+#profile:hover {
+  box-shadow: 0 0 10px 3px black;
+  transform: scale(1.1);
+}
+
+h1#name {
+  animation: introName 1s;
+  animation-fill-mode: forwards;
+  font-family: Arvo, sans-serif;
+  border-bottom: 5px solid #400d67;
+  padding-bottom: 3%;
+  text-align: center;
+  font-size: 300%;
+  transition: font-size 500ms, margin-left 500ms, margin-right 500ms;
+  color: white;
+}
+
+h1#name:hover {
+  font-size: 350%;
+  margin-left: -15%;
+  margin-right: -15%;
+}
+
+#description {
+  animation: introDescription 1s;
+  text-align: justify;
+  font-family: Dosis, sans-serif;
+  font-size: larger;
+  transition: margin-left 1s, margin-right 1s;
+  color: white;
+}
+
+@keyframes FadeIn {
+	0% {
+		opacity: 0;
+		transition-duration: 0.5s;
+		transform: translateY(-10px);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+		pointer-events: auto;
+		transition: cubic-bezier(0.4, 0, 0.2, 1);
+	}
+}

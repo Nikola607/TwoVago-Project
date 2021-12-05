@@ -1,0 +1,134 @@
+
+.hot-offers {
+    top: 20px;
+    padding-top: 40px;
+    color: white;
+    font-weight: 500;
+    text-align: center;
+    font-size: 30px;
+    animation: FadeIn 0.5s cubic-bezier(0.65, 0.05, 0.36, 1);
+}
+
+.new-deal {
+    width: 100%;
+    float: left;
+    padding: 15px 0;
+    animation: FadeIn 1s cubic-bezier(0.65, 0.05, 0.36, 1);
+    animation-fill-mode: both;
+}
+
+.new-deal .item-slide {
+    position: relative;
+    overflow: hidden;
+    transition: all .5s ease;
+    margin: 15px 0;
+}
+
+.new-deal .slide-hover {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: -100%;
+    background: rgba(0, 0, 0, .5);
+    top: 0;
+    transition: all .5s ease;
+    border-radius: 5px;
+}
+
+.new-deal .item-slide:hover .slide-hover {
+    left: 0px;
+}
+
+.new-deal img {
+    max-width: 100%;
+}
+
+.text-wrap {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    color: #fff;
+    background: rgba(0, 0, 0, .5);
+    z-index: 100;
+    transition: all .5s ease;
+}
+
+.text-wrap h4 {
+    z-index: 10;
+    padding: 0 5px;
+}
+
+.box-img {
+    width: 100%;
+    float: left;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.text-wrap .desc {
+    z-index: 10;
+    position: center;
+    width: 50%;
+    float: left;
+    padding: 0 5px;
+}
+
+.text-wrap p {
+    z-index: 10;
+    padding: 15px;
+    font-size: 15px;
+    text-align: center;
+    font-weight: normal;
+    text-shadow: 2px 2px 3px #000;
+}
+
+.text-wrap .desc h4 {
+    margin: 0px;
+    font: 400 17px/21px "Roboto";
+}
+
+.text-wrap .desc h3 {
+    margin: 0px;
+    font: 400 32px/36px "Roboto";
+}
+
+.new-deal .item-slide:hover .text-wrap {
+    background: none
+}
+
+.book-now-c {
+    float: right;
+    padding: 10px;
+}
+
+.book-now-c a {
+    background: #9100ff;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    margin-top: 0px;
+    float: left;
+    min-width: 101px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.new-deal .item-slide:hover .box-img .text-wrap {
+    bottom: -100%;
+}
+
+@keyframes FadeIn {
+    0% {
+        opacity: 0;
+        transition-duration: 0.5s;
+        transform: translateY(-10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+        transition: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+}

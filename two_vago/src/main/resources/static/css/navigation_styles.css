@@ -1,0 +1,300 @@
+.logo {
+    max-height: 45px;
+    position: relative;
+    right: 55px;
+    bottom: 15px;
+    display: block;
+}
+
+.container {
+    width: auto;
+    padding-left: 125px;
+    padding-right: 125px;
+}
+
+body {
+    background-color: #400d67 !important;
+    font-family: 'Raleway', sans-serif;
+}
+
+h1 {
+    color: white;
+    font-weight: 500 !important;
+}
+
+.main_header_area {
+    position: relative;
+    width: 100%;
+    z-index: 900;
+    background: #9100ff;
+    top: 0px;
+    max-height: 70px;
+    animation: FadeIn 1s cubic-bezier(0.65, 0.05, 0.36, 1);
+}
+
+.header_top .header_top_inner {
+    font: 500 14px/30px "Poppins", sans-serif;
+    color: #9100ff;
+    text-align: right;
+    overflow: hidden;
+}
+
+.header_top .header_top_inner ul li {
+    display: inline-block;
+    color: #9100ff;
+}
+
+.header_top {
+    background-color: #030502;
+    color: #9100ff;
+    max-height: 25px;
+}
+
+.header_top .header_top_inner ul li a {
+    color: #9100ff;
+    position: relative;
+}
+
+.header_top .header_top_inner ul li a:before {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 12px;
+    left: 15px;
+    top: 50%;
+    left: -18px;
+    margin-top: -6px;
+    background: #000;
+    transform: rotate(18deg);
+}
+
+.header_top .header_top_inner ul li a:hover {
+    color: #0D2891;
+}
+
+.header_top .header_top_inner ul li:first-child a:before {
+    display: none;
+}
+
+.header_top .header_top_inner ul li + li {
+    margin-left: 30px;
+}
+
+.header_top.h_top_two .header_top_inner ul li a {
+    color: #948ea1;
+}
+
+.header_top.h_top_two .header_top_inner ul li a:before {
+    background: #948ea1;
+}
+
+.navbar {
+    padding: 0px;
+}
+
+.navbar .navbar-brand img + img {
+    display: none;
+}
+
+.navbar .nav .nav-item a {
+    font: 500 16px/40px "Poppins", sans-serif;
+    color: #000;
+    padding: 0px;
+    background-color: #9100ff;
+}
+
+.navbar.navbar-nav {
+    max-height: 40px;
+}
+
+.navbar .nav .nav-item a:after {
+    display: none;
+}
+
+.navbar .nav .nav-item:hover a {
+    color: #0D2891;
+    background-color: #9100ff;
+}
+
+
+.navbar .nav .nav-item.active a {
+    background-color: #400d67;
+    background-color: #9100ff;
+}
+
+.navbar .nav .nav-item.submenu {
+    position: relative;
+    background-color: #9100ff;
+}
+
+.navbar .nav .nav-item.submenu.active {
+    background-color: #000;
+    background-color: #9100ff;
+}
+
+.navbar .nav .nav-item {
+    position: relative;
+    background-color: #9100ff;
+}
+
+@media (min-width: 992px) {
+    .navbar .nav .nav-item.submenu ul {
+        position: absolute;
+        top: 98%;
+        left: -40px;
+        min-width: 160px;
+        background: #9100ff;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        text-align: left;
+        opacity: 0;
+        transition: all 300ms ease-in;
+        visibility: hidden;
+        display: block;
+        border: none;
+        padding: 0px;
+        border-radius: 0px;
+    }
+}
+
+.navbar .nav .nav-item.submenu ul:before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 10px 0 10px;
+    background-color: #9100ff;
+    position: absolute;
+    right: 24px;
+    top: 45px;
+    z-index: 3;
+    opacity: 0;
+    transition: all 400ms linear;
+}
+
+.navbar .nav .nav-item.submenu ul li {
+    display: block;
+    float: none;
+    background-color: #9100ff;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.navbar .nav .nav-item.submenu ul li a {
+    background-color: #9100ff;
+    line-height: 45px;
+    color: #242424;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    padding: 0px 30px;
+    padding-left: 20px;
+    text-align: right;
+    padding-top: 2px;
+    text-transform: capitalize;
+    transition: all 150ms linear;
+    display: block;
+}
+
+.navbar .nav .nav-item.submenu ul li:last-child {
+    background-color: #9100ff;
+    border-bottom: none;
+}
+
+.navbar .nav .nav-item.submenu ul li:hover a {
+    background-color: #400d67;
+    color: #4466d7;
+}
+
+@media (min-width: 992px) {
+    .navbar .nav .nav-item.submenu:hover ul {
+        left: 0px;
+        visibility: visible;
+        opacity: 1;
+    }
+}
+
+.navbar .nav .nav-item + li {
+    margin-left: 30px;
+}
+
+.nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
+    background-color: #400d67;
+    border-color: #337ab7;
+}
+
+/*===================== main_header_area_two css ===================*/
+/* .main_header_area_two {
+  background: red;
+} */
+
+
+/*=============== affix css ===============*/
+.navbar_fixed {
+    width: 100%;
+    left: 0;
+    top: -70px;
+    margin-top: -1px;
+    max-height: 42px;
+    background: #9100ff;
+    position: fixed;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+    border-bottom: 0px;
+    z-index: 999;
+    transform: translateY(70px);
+    transition: transform 500ms ease, background 100ms linear;
+}
+
+.navbar_fixed .header_top, .navbar_fixed .header_top_two {
+    display: none;
+}
+
+/* .navbar_fixed .navbar .navbar-brand img {
+  display: none;
+} */
+
+.navbar_fixed .navbar .navbar-brand img + img {
+    display: block;
+}
+
+.navbar_fixed .navbar .nav .nav-item > a {
+    color: #242424;
+    line-height: 40px;
+}
+
+.navbar_fixed .navbar .nav .nav-item:hover > a, .navbar_fixed .navbar .nav .nav-item.active > a {
+    color: #400d67;
+    background-color: #9100ff;
+}
+
+.navbar_fixed.main_header_area_three {
+    top: -70px;
+    transform: translateY(70px);
+    transition: transform 300ms ease, background 100ms linear;
+    border-radius: 0px;
+    position: fixed;
+    background: #9100ff;
+}
+
+.navbar_fixed.main_header_area_three .navbar {
+    background: #9100ff;
+    border-radius: 0px;
+}
+
+.navbar_fixed.main_header_area_three .navbar .nav .nav-item > a {
+    line-height: 70px;
+}
+
+@keyframes FadeIn {
+    0% {
+        opacity: 0;
+        transition-duration: 0.5s;
+        transform: translateY(-10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+        transition: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+}

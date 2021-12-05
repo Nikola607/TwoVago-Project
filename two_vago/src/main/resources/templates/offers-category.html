@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>twovago</title>
+    <link rel="icon" href="/images/twovago-icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/all-offers.css">
+    <link rel="stylesheet" href="/css/navigation_styles.css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+
+<body>
+<div class="nav-wrapper" style="height:70px;">
+    <header th:replace="fragments/commons.html::nav"></header>
+</div>
+
+<section th:each="o : ${offersByCategory}" th:object="${o}" class="new-deal">
+    <div class="container">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 deal deal-block">
+            <div class="item-slide">
+                <div class="box-img">
+                    <img th:src="*{getPicture()}" alt="Car image"/>
+                    <div class="text-wrap">
+                       <span class="deal-data">
+                        <div class="desc">
+                            <span th:text="*{category}"></span>
+                        <span th:text="*{offerName}"></span>
+                            <h4 th:text="*{city}"></h4>
+                        <h4>Price: €<span th:text="*{price}"></span></h4>
+                    </div>
+                    <div class="book-now-c" style="visibility: hidden;">
+                        <a href="#">Book Now</a>
+                    </div>
+                    </div>
+                </div>
+                <div class="slide-hover">
+                    <div class="text-wrap">
+                        <p th:text="*{description}"></p>
+                        <h4 class="hidden">Velingrad, Bulgaria <span class="deal-data"><span
+                                class="glyphicon glyphicon-calendar"></span>
+                                    Sun, Jan 29 - Tue, Jan 31</span></h4>
+                        <div class="book-now-c">
+                            <a th:href="@{/offers/{id}/details(id=*{id})}">Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+
+</html>

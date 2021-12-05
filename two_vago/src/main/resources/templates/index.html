@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>twovago</title>
+    <link rel="icon" href="/images/twovago-icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/index_styles.css">
+    <link rel="stylesheet" href="/css/navigation_styles.css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+
+<body>
+<div class="nav-wrapper" style="height:70px;">
+    <header th:replace="fragments/commons.html::nav"></header>
+</div>
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="jumboBigTitle">
+        <h1 class="display-4">Welcome to Twovago, guest!</h1>
+    </div>
+    <div class="jumbotronSmallText">
+        <p>Hotel? <span class="twovagoText"> Twovago. </span></p>
+    </div>
+</div>
+
+<div class="hot-offers">
+    <h1>Sum hot dealz</h1>
+</div>
+
+<section th:each="o : ${offers}" th:object="${o}" th:if="${oStat.index < 3}" class="new-deal">
+    <div class="box">
+        <div class="new-deal">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="item-slide">
+                    <div class="box-img">
+                        <img th:src="*{getPicture()}" alt="Car image"/>
+                        <div class="text-wrap">
+                                <span class="deal-data">
+                                    <div class="desc">
+                                        <h4 th:text="*{category}">
+                                </span>
+                            <br>
+                            <div class="offername">
+                                <span th:text="*{offerName}"></span>
+                            </div>
+                            <span th:text="*{city}"></span>
+                            <h4>Price: €<span th:text="*{price}"></span></h4>
+                        </div>
+                        <div class="book-now-c" style="visibility: hidden;">
+                            <a href="#">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-hover">
+                    <div class="text-wrap">
+                        <p th:text="*{description}"></p>
+                        <h4 class="hidden">Velingrad, Bulgaria <span class="deal-data"><span
+                                class="glyphicon glyphicon-calendar"></span>
+                                    Sun, Jan 29 - Tue, Jan 31</span></h4>
+                        <div class="book-now-c">
+                            <a th:href="@{/offers/{id}/details(id=*{id})}">Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container-text text">
+    <p>What is Lorem Ipsum?
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+        industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+        scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
+        into
+        electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
+        release of
+        Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
+        Aldus PageMaker including versions of Lorem Ipsum.
+    </p>
+    <p>Why do we use it?
+        It is a long established fact that a reader will be distracted by the readable content of a page when
+        looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution
+        of
+        letters, as opposed to using 'Content here, content here', making it look like readable English. Many
+        desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a
+        search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have
+        evolved
+        over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+    </p>
+    <p>Where does it come from?
+        Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
+        Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at
+        Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a
+        Lorem
+        Ipsum passage, and going through the cites of the word in classical literature, discovered the
+        undoubtable
+        source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The
+        Extremes
+        of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very
+        popular
+        during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line
+        in
+        section 1.10.32.</p>
+</div>
+</body>
+
+</html>

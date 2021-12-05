@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <link rel="stylesheet" href="/css/index_styles.css">
+    <link rel="stylesheet" href="/css/navigation_styles.css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+
+<body>
+<header th:replace="fragments/commons.html::nav"></header>
+
+<div class="hot-offers">
+    <h1 class="text-center text-white mt-5">Welcome to Stats!</h1>
+    <h3 class="text-center text-white mt-5">Total requests <th:block th:text="${stats.getTotalRequests()}"></th:block></h3>
+    <h3 class="text-center text-white mt-5">Anonymous requests <th:block th:text="${stats.getAnonRequests()}"></th:block></h3>
+    <h3 class="text-center text-white mt-5">Authorized requests <th:block th:text="${stats.getAuthRequests()}"></th:block></h3>
+</div>
+
+</body>
+
+</html>
