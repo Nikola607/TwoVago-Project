@@ -32,11 +32,11 @@ public class CloudinaryServiceImpl implements CloudinaryService {
             Map<String, String> uploadResult = cloudinary.
                     uploader().
                     upload(tempFile, Map.of(
-                            "folder","Restaurant_DB"
+                            "folder","TwoVago-Project"
                     ));
 
             String url = uploadResult.getOrDefault(URL,
-                    "https://cdn.dribbble.com/users/34642/screenshots/1890926/media/c7c3051baa6199482fbd63599dd635b0.jpg");
+                    "https://www.impactplus.com/hs-fs/hubfs/404-error-page-examples-best.jpg?length=1200&name=404-error-page-examples-best.jpg");
             String publicId = uploadResult.getOrDefault(PUBLIC_ID, "");
 
             return new CloudinaryImage().
