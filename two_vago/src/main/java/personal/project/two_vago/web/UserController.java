@@ -8,22 +8,28 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import personal.project.two_vago.models.binding.UserLoginBindingModel;
 import personal.project.two_vago.models.binding.UserRegisterBindingModel;
+import personal.project.two_vago.models.entities.view.OfferSummaryView;
 import personal.project.two_vago.models.entities.view.UserViewModel;
 import personal.project.two_vago.models.service.UserServiceModel;
+import personal.project.two_vago.service.OfferService;
 import personal.project.two_vago.service.UserService;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/users")
 public class UserController {
     private final UserService userService;
     private final ModelMapper modelMapper;
+    private final OfferService offerService;
 
-    public UserController(UserService userService, ModelMapper modelMapper) {
+    public UserController(UserService userService, ModelMapper modelMapper, OfferService offerService) {
         this.userService = userService;
         this.modelMapper = modelMapper;
+        this.offerService = offerService;
     }
 
     @GetMapping("/register")
@@ -44,7 +50,14 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    private String profile(Model model){
+    private String profile(Principal principal, Model model) {
+        UserViewModel viewModel = this.userService.getViewModelByUsername(principal.getName());
+        List<OfferSummaryView> offersByUser = this.offerService.getOffersByUser(principal.getName());
+        UserViewModel newPic = this.userService.changeProfilePic(principal.getName());
+
+        model.addAttribute("userViewModel", viewModel);
+        model.addAttribute("userOffers", offersByUser);
+        model.addAttribute("changePicture", newPic);
 
         return "profile";
     }

@@ -7,16 +7,21 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import personal.project.two_vago.models.entities.Offer;
 import personal.project.two_vago.models.entities.Role;
 import personal.project.two_vago.models.entities.User;
 import personal.project.two_vago.models.entities.enums.RoleNameEnum;
+import personal.project.two_vago.models.entities.view.OfferSummaryView;
+import personal.project.two_vago.models.entities.view.UserViewModel;
 import personal.project.two_vago.models.service.UserServiceModel;
+import personal.project.two_vago.repository.OfferRepository;
 import personal.project.two_vago.repository.RoleRepository;
 import personal.project.two_vago.repository.UserRepository;
 import personal.project.two_vago.service.UserService;
 
 import java.util.List;
-import java.util.Set;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 @Component
 public class UserServiceImpl implements UserService {
@@ -25,13 +30,15 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final TwoVagoUserServiceImpl twoVagoUserService;
+    private final OfferRepository offerRepository;
 
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, RoleRepository roleRepository, PasswordEncoder passwordEncoder, TwoVagoUserServiceImpl twoVagoUserService) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, RoleRepository roleRepository, PasswordEncoder passwordEncoder, TwoVagoUserServiceImpl twoVagoUserService, OfferRepository offerRepository) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
         this.twoVagoUserService = twoVagoUserService;
+        this.offerRepository = offerRepository;
     }
 
     @Override
@@ -53,6 +60,9 @@ public class UserServiceImpl implements UserService {
         newUser
                 .setAge(userRegistrationServiceModel.getAge());
 
+        newUser
+                .setProfilePic(getRandomProfilePic());
+
         newUser = userRepository.save(newUser);
 
         // this is the Spring representation of a user
@@ -67,6 +77,12 @@ public class UserServiceImpl implements UserService {
                 getContext().
                 setAuthentication(authentication);
     }
+
+    private String getRandomProfilePic() {
+        int random = new Random().nextInt(6);
+        return "/images/profilePictures/" + random + ".png";
+    }
+
 
     @Override
     public void initializeRoles() {
@@ -103,13 +119,46 @@ public class UserServiceImpl implements UserService {
                     .setEmail("admin@admin.com");
             admin
                     .setRole(adminRole);
-
+            admin
+                    .setProfilePic(getRandomProfilePic());
 
             admin.setRole(adminRole);
 
             userRepository.save(admin);
         }
     }
+
+    @Override
+    public UserViewModel getViewModelByUsername(String name) {
+        return this.userRepository
+                .findByUsername(name)
+                .map(u -> this.modelMapper.map(u, UserViewModel.class))
+                .orElseThrow();
+    }
+
+    @Override
+    public UserViewModel changeProfilePic(String name) {
+        User user = userRepository.findByUsername(name).orElse(null);
+        user.setProfilePic(getRandomProfilePic());
+
+        return modelMapper.map(user, UserViewModel.class);
+    }
+
+//    @Override
+//    public List<UserViewModel> getOffersByUser(String name) {
+//        User user = userRepository.findByUsername(name).orElse(null);
+//
+//        return offerRepository.findAllByUser(user).stream()
+//                .map(this::map)
+//                .collect(Collectors.toList());
+//    }
+//
+//    private UserViewModel map(Offer offerEntity) {
+//
+//        return this.modelMapper
+//                 .map(offerEntity, UserViewModel.class);
+//    }
+
 
     @Override
     public UserServiceModel findByUsernameAndPassword(String username, String password) {

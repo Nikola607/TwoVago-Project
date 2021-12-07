@@ -6,6 +6,7 @@
     <title>twovago</title>
     <link rel="icon" href="/images/twovago-icon.png" type="image/x-icon">
     <link rel="stylesheet" href="/css/navigation_styles.css">
+    <link rel="stylesheet" href="/css/index_styles.css">
     <link rel="stylesheet" href="/css/profile_style.css">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
@@ -15,14 +16,49 @@
 
 <body>
     <header th:replace="fragments/commons.html::nav"></header>
-    <div id="wrapper">
-        <img src="https://picsum.photos/250" alt="Profile picture" id="profile">
-        <h1 id="name">Lorem Ipsum</h1>
+    <div th:object="${userViewModel}" id="wrapper">
+        <img th:src="*{getProfilePic()}" alt="Profile picture" id="profile">
+        <button th:object="${changePicture}" >Change Profile Picture</button>
+        <h1 th:text="*{fullName}" id="name"></h1>
         <p id="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, animi temporibus commodi,
             consequuntur blanditiis error mollitia, omnis corporis at voluptates ad similique exercitationem harum
             necessitatibus voluptatem facilis iste quasi magnam consequatur laudantium dolorum modi? Cum, ratione harum
             tempora, eum eos dicta voluptatem quia dolorem provident expedita reiciendis. Consectetur, labore ipsam.</p>
     </div>
+    <section th:each="o : ${userOffers}" th:object="${o}" class="new-deal">
+        <div class="container">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 deal deal-block">
+                <div class="item-slide">
+                    <div class="box-img">
+                        <img th:src="*{getPicture()}" alt="Car image"/>
+                        <div class="text-wrap">
+                       <span class="deal-data">
+                        <div class="desc">
+                            <span th:text="*{category}"></span>
+                        <span th:text="*{offerName}"></span>
+                            <h4 th:text="*{city}"></h4>
+                        <h4>Price: €<span th:text="*{price}"></span></h4>
+                    </div>
+                    <div class="book-now-c" style="visibility: hidden;">
+                        <a href="#">Book Now</a>
+                    </div>
+                        </div>
+                    </div>
+                    <div class="slide-hover">
+                        <div class="text-wrap">
+                            <p th:text="*{description}"></p>
+                            <h4 class="hidden">Velingrad, Bulgaria <span class="deal-data"><span
+                                    class="glyphicon glyphicon-calendar"></span>
+                                    Sun, Jan 29 - Tue, Jan 31</span></h4>
+                            <div class="book-now-c">
+                                <a th:href="@{/offers/{id}/details(id=*{id})}">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 </body>
 

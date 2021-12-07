@@ -3,6 +3,8 @@ package personal.project.two_vago.models.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 @Entity(name = "users")
 public class User extends BaseEntity {
@@ -14,6 +16,7 @@ public class User extends BaseEntity {
     private Integer age;
     private String email;
     private Role role;
+    private List<Offer> offers;
 
     public User() {
     }
@@ -77,5 +80,14 @@ public class User extends BaseEntity {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    @OneToMany(mappedBy = "user")
+    public List<Offer> getOffers() {
+        return offers;
+    }
+
+    public void setOffers(List<Offer> offers) {
+        this.offers = offers;
     }
 }

@@ -95,6 +95,16 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
+    public List<OfferSummaryView> getOffersByUser(String name) {
+        User user = userRepository.findByUsername(name).orElse(null);
+
+        return offerRepository.findAllByUser(user)
+                .stream()
+                .map(this::map)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<OfferSummaryView> getAllOffers() {
         return offerRepository.
                 findAll().
