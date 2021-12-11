@@ -63,11 +63,11 @@
                         <span th:text="*{price}"></span>
                         <span> / night</span></h4>
                     <th:block th:if="*{canUpdate}">
-                        <a class="btn btn-link" th:href="@{/offers/{id}/edit(id=*{id})}">Update</a>
+                        <a class="btn btn-link" id="update" th:href="@{/offers/{id}/edit(id=*{id})}">Update</a>
                     </th:block>
                     <th:block th:if="*{canDelete}">
                         <form th:action="@{/offers/{id}(id=*{id})}" th:method="delete">
-                            <input type="submit" class="btn btn-link" value="Delete"/>
+                            <input type="submit" id="delete" class="btn btn-link" value="Delete"/>
                         </form>
                     </th:block>
                 </div>
