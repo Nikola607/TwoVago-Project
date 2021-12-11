@@ -174,6 +174,7 @@ public class OfferServiceImpl implements OfferService {
             offer1.setCity(cityRepository.findByName(CityNameEnum.Bansko).orElse(null));
             offer1.setCategory(categoryRepository.findByCategoryName(CategoryNameEnum.HOTEL).orElse(null));
             offer1.setUser(userRepository.findByUsername("admin").orElse(null));
+            offer1.setContact(userRepository.findByUsername("admin").orElse(null).getNumber());
 
             Offer offer2 = new Offer();
             offer2.setOfferName("Villa EM");
@@ -183,6 +184,7 @@ public class OfferServiceImpl implements OfferService {
             offer2.setCity(cityRepository.findByName(CityNameEnum.Velingrad).orElse(null));
             offer2.setCategory(categoryRepository.findByCategoryName(CategoryNameEnum.VILLA).orElse(null));
             offer2.setUser(userRepository.findByUsername("admin").orElse(null));
+            offer2.setContact(userRepository.findByUsername("admin").orElse(null).getNumber());
 
             Offer offer3 = new Offer();
             offer3.setOfferName("Hotel Luxor");
@@ -192,6 +194,7 @@ public class OfferServiceImpl implements OfferService {
             offer3.setCity(cityRepository.findByName(CityNameEnum.Primorsko).orElse(null));
             offer3.setCategory(categoryRepository.findByCategoryName(CategoryNameEnum.HOTEL).orElse(null));
             offer3.setUser(userRepository.findByUsername("admin").orElse(null));
+            offer3.setContact(userRepository.findByUsername("admin").orElse(null).getNumber());
 
             offerRepository.saveAll(List.of(offer1, offer2, offer3));
         }
@@ -206,6 +209,8 @@ public class OfferServiceImpl implements OfferService {
         offerDetailsView.setSellerName(
                 offer.getUser().getFullName()
         );
+        offerDetailsView.setSellerContact(userRepository
+                .findByUsername(currentUser).orElse(null).getNumber());
         return offerDetailsView;
     }
 

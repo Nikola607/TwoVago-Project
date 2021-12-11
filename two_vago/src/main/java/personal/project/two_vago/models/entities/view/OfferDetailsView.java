@@ -20,6 +20,7 @@ public class OfferDetailsView {
     private boolean canDelete;
     private boolean canUpdate;
     private String sellerName;
+    private String sellerContact;
 
     public OfferDetailsView() {
     }
@@ -110,5 +111,13 @@ public class OfferDetailsView {
 
     public void setSellerName(String sellerName) {
         this.sellerName = sellerName;
+    }
+
+    public String getSellerContact() {
+        return sellerContact;
+    }
+
+    public void setSellerContact(String sellerContact) {
+        this.sellerContact = sellerContact;
     }
 }

@@ -13,12 +13,14 @@ public class UserRegisterBindingModel {
     private String confirmPassword;
     private String fullName;
     private Integer age;
+    private String number;
     private String email;
 
     public UserRegisterBindingModel() {
     }
 
     @Size(min = 3, max = 20)
+
     public String getUsername() {
         return username;
     }
@@ -61,6 +63,15 @@ public class UserRegisterBindingModel {
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    @Size(min = 5)
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     @Email

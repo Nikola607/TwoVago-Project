@@ -18,6 +18,7 @@ public class Offer extends BaseEntity {
     private City city;
     private User user;
     private Set<Review> reviews;
+    private String contact;
 
     public Offer() {
     }
@@ -56,6 +57,14 @@ public class Offer extends BaseEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
     @ManyToOne

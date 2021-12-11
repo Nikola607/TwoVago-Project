@@ -52,6 +52,12 @@
 
                         </div>
                         <div class="form-group">
+                            <label for="form2">Your number:</label>
+                            <input minlength="5" th:field="*{number}" th:errorclass="is-invalid" class="form-control" type="text"
+                                   placeholder="Number (must be valid number)" name="number" aria-describedby="usernameHelpInline" id="number" required>
+
+                        </div>
+                        <div class="form-group">
                             <label for="form2">Your email:</label>
                             <input minlength="5" th:field="*{email}" th:errorclass="is-invalid" class="form-control" type="text"
                                 placeholder="Email (example@example.com)" name="email" aria-describedby="usernameHelpInline" id="email"

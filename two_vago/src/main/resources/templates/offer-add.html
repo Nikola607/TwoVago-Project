@@ -52,8 +52,8 @@
                     </div>
                     <div class="form-group">
                         <label for="form2">Description:</label>
-                        <input th:field="*{description}" th:errorclass="is-invalid" class="form-control" type="text"
-                               placeholder="Description" name="description" aria-describedby="descriptionHelpInline" id="description" required>
+                        <textarea style="resize: none" cols="40" rows="5" th:field="*{description}" th:errorclass="is-invalid" class="form-control" type="text"
+                                  placeholder="Description" name="description" aria-describedby="descriptionHelpInline" id="description" required></textarea>
 
                     </div>
                     <div class="form-group">

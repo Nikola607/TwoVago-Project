@@ -29,7 +29,7 @@
 <div class="container">
     <div class="card">
         <div th:object="${offer}" class="container-fliud">
-            <div class="wrapper row">
+            <div th:object="${offer}" class="wrapper row">
                 <div class="preview col-md-6 col-xs-12">
 
                     <div class="preview-pic tab-content">
@@ -62,6 +62,12 @@
                     <h4 class="price">current price:<span>€</span>
                         <span th:text="*{price}"></span>
                         <span> / night</span></h4>
+                    <h3 class="product-description" >Added by:
+                        <span th:text="*{sellerName}"></span>
+                    </h3>
+                    <h3 class="product-description" >Contact:
+                        <span th:text="*{sellerContact}"></span>
+                    </h3>
                     <th:block th:if="*{canUpdate}">
                         <a class="btn btn-link" id="update" th:href="@{/offers/{id}/edit(id=*{id})}">Update</a>
                     </th:block>
@@ -88,10 +94,6 @@
                         <button class="add-to-cart btn btn-default" type="button">add to cart</button>
                     </div> -->
             </div>
-            <div class="wdpt">
-                <h2>What do people think?</h2>
-            </div>
-
         </div>
         <div class="reviews">
             <div class="container">

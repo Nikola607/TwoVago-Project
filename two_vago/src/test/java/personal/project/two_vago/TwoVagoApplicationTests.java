@@ -22,6 +22,7 @@ class TwoVagoApplicationTests {
     public static String automationEmail;
     String automationAge = "420";
     String automationPassword = "1234";
+    String automationNumber = "0886969";
 
     By NAV_REGISTER_BUTTON = By.xpath("//*[text()='Register']");
     By NAV_LOGIN_BUTTON = By.xpath("//*[text()='Login']");
@@ -34,6 +35,7 @@ class TwoVagoApplicationTests {
     By FULL_NAME_REGISTER_FIELD = By.cssSelector("[id=fullName]");
     By AGE_REGISTER_FIELD = By.cssSelector("[id=age]");
     By EMAIL_REGISTER_FIELD = By.cssSelector("[id=email]");
+    By NUMBER_REGISTER_FIELD = By.cssSelector("[id=number]");
     By PASSWORD_FIELD = By.cssSelector("[id=password]");
     By PASSWORD_FIELD2 = By.cssSelector("[id=psw]");
 
@@ -80,6 +82,7 @@ class TwoVagoApplicationTests {
         webDriver.findElement(FULL_NAME_REGISTER_FIELD).sendKeys(automationName);
         webDriver.findElement(AGE_REGISTER_FIELD).sendKeys(automationAge);
         webDriver.findElement(EMAIL_REGISTER_FIELD).sendKeys(automationEmail);
+        webDriver.findElement(NUMBER_REGISTER_FIELD).sendKeys(automationNumber);
         webDriver.findElement(PASSWORD_FIELD).sendKeys(automationPassword);
         webDriver.findElement(CONFIRM_PASSWORD_REGISTER_FIELD).sendKeys(automationPassword);
         click(SUBMIT_BUTTON_REGISTER);

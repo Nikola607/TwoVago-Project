@@ -12,6 +12,7 @@ public class UserViewModel {
     private String fullName;
     private Integer age;
     private String email;
+    private String number;
     private RoleNameEnum role;
 
 
@@ -72,5 +73,13 @@ public class UserViewModel {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 }

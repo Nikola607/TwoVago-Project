@@ -62,6 +62,8 @@ public class UserServiceImpl implements UserService {
 
         newUser
                 .setProfilePic(getRandomProfilePic());
+        newUser
+                .setNumber(userRegistrationServiceModel.getNumber());
 
         newUser = userRepository.save(newUser);
 
@@ -112,7 +114,7 @@ public class UserServiceImpl implements UserService {
             admin
                     .setPassword(passwordEncoder.encode("test"));
             admin
-                    .setFullName("Admin");
+                    .setFullName("Jesus");
             admin
                     .setAge(999);
             admin
@@ -121,6 +123,8 @@ public class UserServiceImpl implements UserService {
                     .setRole(adminRole);
             admin
                     .setProfilePic(getRandomProfilePic());
+            admin
+                    .setNumber("088420420");
 
             admin.setRole(adminRole);
 

@@ -16,23 +16,7 @@
 <form th:action="@{/offers/{id}/edit(id=*{id})}" th:object="${offerModel}" th:method="patch">
     <div class="container">
 
-        <div class="col-sm-8 col-sm-offset-2 main">
-            <div class="col-sm-6 left-side">
-                <h1>Hi!</h1>
-                <p>We hope you enjoy your stay.</p>
-                <br>
-                <p>Already have an account?
-                    <a style="color:skyblue" href="/users/login">Login</a>
-                </p>
-            </div>
-            <!--col-sm-6-->
-
-            <!--            private String offerName;-->
-            <!--            private BigDecimal price;-->
-            <!--            private String picture;-->
-            <!--            private String description;-->
-            <!--            private CategoryNameEnum category;-->
-            <!--            private CityNameEnum city;-->
+        <div style="margin-left: 50% !important;" class="col-sm-8 col-sm-offset-2 main">
 
             <div class="col-sm-6 right-side">
                 <h1>Update Offer</h1>
@@ -55,21 +39,27 @@
                     <div class="form-group">
                         <label for="form2">Picture:</label>
                         <input th:field="*{picture}" th:errorclass="is-invalid" class="form-control" type="url"
-                               placeholder="Picture" name="picture" aria-describedby="descriptionHelpInline" id="picture" required>
+                               placeholder="Picture" name="picture" aria-describedby="descriptionHelpInline"
+                               id="picture" required>
 
                     </div>
                     <div class="form-group">
                         <label for="form2">Description:</label>
-                        <input th:field="*{description}" th:errorclass="is-invalid" class="form-control" type="text"
-                               placeholder="Description" name="description" aria-describedby="descriptionHelpInline" id="description" required>
+                        <textarea style="resize: none" cols="40" rows="5" th:field="*{description}"
+                                  th:errorclass="is-invalid" class="form-control" type="text"
+                                  placeholder="Description" name="description" aria-describedby="descriptionHelpInline"
+                                  id="description" required></textarea>
 
                     </div>
                     <div class="form-group">
                         <label for="form2">Category:</label>
-                        <select th:field="*{category}" th:errorclass="is-invalid" id="category" name="category" class="form-control"
+                        <select th:field="*{category}" th:errorclass="is-invalid" id="category" name="category"
+                                class="form-control"
                                 aria-describedby="categoryHelpInline">
                             <option value="" selected>Category</option>
-                            <option th:each="c : ${T(personal.project.two_vago.models.entities.enums.CategoryNameEnum).values()}" th:value="${c}" th:text="${c}" value="">Hotel</option>
+                            <option th:each="c : ${T(personal.project.two_vago.models.entities.enums.CategoryNameEnum).values()}"
+                                    th:value="${c}" th:text="${c}" value="">Hotel
+                            </option>
 
                         </select>
                     </div>
@@ -78,7 +68,9 @@
                         <select th:field="*{city}" th:errorclass="is-invalid" id="city" name="city" class="form-control"
                                 aria-describedby="cityHelpInline">
                             <option value="" selected>City</option>
-                            <option th:each="c : ${T(personal.project.two_vago.models.entities.enums.CityNameEnum).values()}" th:value="${c}" th:text="${c}" value="">Sofia</option>
+                            <option th:each="c : ${T(personal.project.two_vago.models.entities.enums.CityNameEnum).values()}"
+                                    th:value="${c}" th:text="${c}" value="">Sofia
+                            </option>
 
                         </select>
 

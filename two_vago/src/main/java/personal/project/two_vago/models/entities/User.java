@@ -17,11 +17,12 @@ public class User extends BaseEntity {
     private String email;
     private Role role;
     private List<Offer> offers;
+    private String number;
 
     public User() {
     }
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     public String getUsername() {
         return username;
     }
@@ -71,6 +72,15 @@ public class User extends BaseEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Column(nullable = false)
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     @ManyToOne

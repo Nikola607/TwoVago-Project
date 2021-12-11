@@ -18,6 +18,7 @@ public class OfferAddBindingModel {
     public OfferAddBindingModel() {
     }
 
+    @NotNull
     public String getOfferName() {
         return offerName;
     }
@@ -44,6 +45,7 @@ public class OfferAddBindingModel {
         this.picture = picture;
     }
 
+    @NotNull
     public String getDescription() {
         return description;
     }
@@ -52,6 +54,7 @@ public class OfferAddBindingModel {
         this.description = description;
     }
 
+    @NotNull
     public CategoryNameEnum getCategory() {
         return category;
     }
@@ -60,6 +63,7 @@ public class OfferAddBindingModel {
         this.category = category;
     }
 
+    @NotNull
     public CityNameEnum getCity() {
         return city;
     }

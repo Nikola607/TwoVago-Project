@@ -9,6 +9,7 @@ public class UserServiceModel {
     private String password;
     private String fullName;
     private Integer age;
+    private String number;
     private String email;
     private Role role;
 
@@ -69,5 +70,13 @@ public class UserServiceModel {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 }
