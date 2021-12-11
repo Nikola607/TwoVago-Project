@@ -21,7 +21,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgb(48,48,48);
+  background: rgb(48, 48, 48);
   background: linear-gradient(90deg,
     rgba(48,48,48,1) 25%,
     rgba(32,32,32,1) 75%);
@@ -81,6 +81,25 @@ h1#name:hover {
   font-size: larger;
   transition: margin-left 1s, margin-right 1s;
   color: white;
+}
+.age{
+  color: white;
+  animation: introName 1s;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.offersBy{
+  color: white;
+  animation: introName 1s;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.oferti{
+  margin-left: 35%;
 }
 
 @keyframes FadeIn {

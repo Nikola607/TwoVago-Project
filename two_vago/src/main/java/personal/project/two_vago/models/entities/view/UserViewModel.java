@@ -1,6 +1,8 @@
 package personal.project.two_vago.models.entities.view;
 
+import personal.project.two_vago.models.entities.User;
 import personal.project.two_vago.models.entities.enums.RoleNameEnum;
+import personal.project.two_vago.repository.UserRepository;
 
 public class UserViewModel {
     private Long id;
@@ -9,7 +11,9 @@ public class UserViewModel {
     private String username;
     private String fullName;
     private Integer age;
+    private String email;
     private RoleNameEnum role;
+
 
     public UserViewModel() {
     }
@@ -60,5 +64,13 @@ public class UserViewModel {
 
     public void setRole(RoleNameEnum role) {
         this.role = role;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

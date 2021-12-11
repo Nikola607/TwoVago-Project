@@ -4,6 +4,16 @@
     right: 55px;
     bottom: 15px;
     display: block;
+    transition: transform 300ms;
+}
+
+.logo:hover {
+    transform: scale(0.85);
+}
+
+@keyframes introName {
+    from {transform: translate(-100%,0)}
+    to {transform: translate(0,0);}
 }
 
 .container {

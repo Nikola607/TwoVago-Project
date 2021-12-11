@@ -110,13 +110,22 @@ public class OfferController {
         return "offers";
     }
 
-    @GetMapping("/{category}/all")
-    public String allOffersByCategory(@PathVariable Category category ,Model model){
-        model.addAttribute("offersByCategory",
-                offerService.getAllOffersByCategory(category.getCategoryName()));
+    @GetMapping("/HOTEL/all")
+    public String allOffersByCategoryHotels(Model model){
+        model.addAttribute("offersByCategoryHotel",
+                offerService.getAllOffersByCategory(CategoryNameEnum.HOTEL));
 
-        return "offers-category";
+        return "offers-Hotels";
     }
+
+    @GetMapping("/VILLA/all")
+    public String allOffersByCategoryVillas(Model model){
+        model.addAttribute("offersByCategoryVilla",
+                offerService.getAllOffersByCategory(CategoryNameEnum.VILLA));
+
+        return "offers-Villas";
+    }
+
 
     @GetMapping("/{id}/details")
     public String showOffer(

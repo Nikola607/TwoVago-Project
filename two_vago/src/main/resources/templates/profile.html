@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <title>twovago</title>
@@ -15,23 +15,31 @@
 </head>
 
 <body>
-    <header th:replace="fragments/commons.html::nav"></header>
-    <div th:object="${userViewModel}" id="wrapper">
-        <img th:src="*{getProfilePic()}" alt="Profile picture" id="profile">
-        <button th:object="${changePicture}" >Change Profile Picture</button>
-        <h1 th:text="*{fullName}" id="name"></h1>
-        <p id="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, animi temporibus commodi,
-            consequuntur blanditiis error mollitia, omnis corporis at voluptates ad similique exercitationem harum
-            necessitatibus voluptatem facilis iste quasi magnam consequatur laudantium dolorum modi? Cum, ratione harum
-            tempora, eum eos dicta voluptatem quia dolorem provident expedita reiciendis. Consectetur, labore ipsam.</p>
-    </div>
-    <section th:each="o : ${userOffers}" th:object="${o}" class="new-deal">
-        <div class="container">
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 deal deal-block">
-                <div class="item-slide">
-                    <div class="box-img">
-                        <img th:src="*{getPicture()}" alt="Car image"/>
-                        <div class="text-wrap">
+<header th:replace="fragments/commons.html::nav"></header>
+<div th:object="${userViewModel}" id="wrapper">
+    <img th:src="*{getProfilePic()}" alt="Profile picture" id="profile">
+    <h1 th:text="*{fullName}" id="name"></h1>
+    <h4 class="age">Age:
+        <span th:text="*{age}"></span>
+    </h4>
+    <h4 class="age">Role:
+        <span th:text="*{role}"></span>
+    </h4>
+    <h4 class="age">Email:
+        <span th:text="*{email}"></span>
+    </h4>
+</div>
+<h4 th:object="${userViewModel}" class="offersBy">All offers by
+    <span th:text="*{fullName}"></span><span>:</span>
+</h4>
+<div class="oferti">
+<section th:each="o : ${userOffers}" th:object="${o}" class="new-deal">
+    <div class="container">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 deal deal-block">
+            <div class="item-slide">
+                <div class="box-img">
+                    <img th:src="*{getPicture()}" alt="Car image"/>
+                    <div class="text-wrap">
                        <span class="deal-data">
                         <div class="desc">
                             <span th:text="*{category}"></span>
@@ -42,24 +50,24 @@
                     <div class="book-now-c" style="visibility: hidden;">
                         <a href="#">Book Now</a>
                     </div>
-                        </div>
                     </div>
-                    <div class="slide-hover">
-                        <div class="text-wrap">
-                            <p th:text="*{description}"></p>
-                            <h4 class="hidden">Velingrad, Bulgaria <span class="deal-data"><span
-                                    class="glyphicon glyphicon-calendar"></span>
+                </div>
+                <div class="slide-hover">
+                    <div class="text-wrap">
+                        <p th:text="*{description}"></p>
+                        <h4 class="hidden">Velingrad, Bulgaria <span class="deal-data"><span
+                                class="glyphicon glyphicon-calendar"></span>
                                     Sun, Jan 29 - Tue, Jan 31</span></h4>
-                            <div class="book-now-c">
-                                <a th:href="@{/offers/{id}/details(id=*{id})}">Details</a>
-                            </div>
+                        <div class="book-now-c">
+                            <a th:href="@{/offers/{id}/details(id=*{id})}">Details</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-
+    </div>
+</section>
+</div>
 </body>
 
 </html>

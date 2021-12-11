@@ -11,5 +11,5 @@ import java.util.Optional;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
     Optional<Category> findByCategoryName(CategoryNameEnum categoryName);
-    List<Category> findAllByCategoryName(CategoryNameEnum categoryName);
+    Category findAllByCategoryName(CategoryNameEnum categoryName);
 }

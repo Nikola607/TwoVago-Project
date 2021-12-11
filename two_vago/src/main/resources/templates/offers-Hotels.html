@@ -17,7 +17,7 @@
     <header th:replace="fragments/commons.html::nav"></header>
 </div>
 
-<section th:each="o : ${offers}" th:object="${o}" class="new-deal" th:id="*{getId()}">
+<section th:each="o : ${offersByCategoryHotel}" th:object="${o}" class="new-deal">
     <div class="container">
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 deal deal-block">
             <div class="item-slide">

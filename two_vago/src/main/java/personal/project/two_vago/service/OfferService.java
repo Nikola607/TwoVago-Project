@@ -28,7 +28,7 @@ public interface OfferService {
 
     void updateOffer(OfferServiceModel offerModel);
 
-    List<OfferSummaryView> getAllOffersByCategory(CategoryNameEnum category);
-
     List<OfferSummaryView> getOffersByUser(String name);
+
+    List<OfferSummaryView> getAllOffersByCategory(CategoryNameEnum name);
 }

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <title>twovago</title>
@@ -19,7 +21,10 @@
 
 <div class="jumbotron jumbotron-fluid">
     <div class="jumboBigTitle">
-        <h1 class="display-4">Welcome to Twovago, guest!</h1>
+        <h5 class="hot-offers">Welcome back,
+            <span sec:authorize="isAuthenticated()" sec:authentication="name"></span>
+            <span sec:authorize="!isAuthenticated()">Anonymous</span>!
+        </h5>
     </div>
     <div class="jumbotronSmallText">
         <p>Hotel? <span class="twovagoText"> Twovago. </span></p>

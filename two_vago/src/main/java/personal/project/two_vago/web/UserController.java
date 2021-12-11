@@ -53,14 +53,20 @@ public class UserController {
     private String profile(Principal principal, Model model) {
         UserViewModel viewModel = this.userService.getViewModelByUsername(principal.getName());
         List<OfferSummaryView> offersByUser = this.offerService.getOffersByUser(principal.getName());
-        UserViewModel newPic = this.userService.changeProfilePic(principal.getName());
 
         model.addAttribute("userViewModel", viewModel);
         model.addAttribute("userOffers", offersByUser);
-        model.addAttribute("changePicture", newPic);
 
         return "profile";
     }
+
+//    @PostMapping("/profile")
+//    private String changeProfilePic(Principal principal, Model model) {
+//        UserViewModel newPic = this.userService.changeProfilePic(principal.getName());
+//        model.addAttribute("changePicture", newPic);
+//
+//        return "profile";
+//    }
 
     @PostMapping("/register")
     public String confirmRegister(@Valid UserRegisterBindingModel userRegisterBindingModel,
