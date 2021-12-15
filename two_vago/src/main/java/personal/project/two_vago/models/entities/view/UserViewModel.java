@@ -14,6 +14,7 @@ public class UserViewModel {
     private String email;
     private String number;
     private RoleNameEnum role;
+    private int loginDays;
 
 
     public UserViewModel() {
@@ -81,5 +82,13 @@ public class UserViewModel {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    public int getLoginDays() {
+        return loginDays;
+    }
+
+    public void setLoginDays(int loginDays) {
+        this.loginDays = loginDays;
     }
 }

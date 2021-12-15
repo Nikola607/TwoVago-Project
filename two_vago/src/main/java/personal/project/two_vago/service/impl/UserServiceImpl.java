@@ -65,6 +65,8 @@ public class UserServiceImpl implements UserService {
         newUser
                 .setNumber(userRegistrationServiceModel.getNumber());
 
+        newUser.setLoginDays(0);
+
         newUser = userRepository.save(newUser);
 
         // this is the Spring representation of a user
@@ -127,6 +129,7 @@ public class UserServiceImpl implements UserService {
                     .setNumber("088420420");
 
             admin.setRole(adminRole);
+            admin.setLoginDays(0);
 
             userRepository.save(admin);
         }
@@ -134,6 +137,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserViewModel getViewModelByUsername(String name) {
+        addLoginDay(name);
+        setLoggedInTrue(name);
+
         return this.userRepository
                 .findByUsername(name)
                 .map(u -> this.modelMapper.map(u, UserViewModel.class))
@@ -146,6 +152,29 @@ public class UserServiceImpl implements UserService {
         user.setProfilePic(getRandomProfilePic());
 
         return modelMapper.map(user, UserViewModel.class);
+    }
+
+    @Override
+    public void setLoggedIn() {
+       userRepository
+               .findAll()
+               .forEach(u-> u.setWasLoggedInToday(true));
+    }
+
+    @Override
+    public void setLoggedInTrue(String name) {
+        User user = userRepository.findByUsername(name).orElse(null);
+
+        user.setWasLoggedInToday(true);
+    }
+
+    @Override
+    public void addLoginDay(String name) {
+        User user = userRepository.findByUsername(name).orElse(null);
+
+        if(!user.isWasLoggedInToday()) {
+            user.setLoginDays(user.getLoginDays() + 1);
+        }
     }
 
 //    @Override

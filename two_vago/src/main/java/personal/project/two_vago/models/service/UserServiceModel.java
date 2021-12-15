@@ -12,6 +12,8 @@ public class UserServiceModel {
     private String number;
     private String email;
     private Role role;
+    private boolean wasLoggedInToday = false;
+    private int loginDays;
 
     public UserServiceModel() {
     }
@@ -78,5 +80,21 @@ public class UserServiceModel {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    public boolean isWasLoggedInToday() {
+        return wasLoggedInToday;
+    }
+
+    public void setWasLoggedInToday(boolean wasLoggedInToday) {
+        this.wasLoggedInToday = wasLoggedInToday;
+    }
+
+    public int getLoginDays() {
+        return loginDays;
+    }
+
+    public void setLoginDays(int loginDays) {
+        this.loginDays = loginDays;
     }
 }
