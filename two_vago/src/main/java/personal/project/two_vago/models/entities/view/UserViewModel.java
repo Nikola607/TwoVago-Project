@@ -1,6 +1,7 @@
 package personal.project.two_vago.models.entities.view;
 
 import personal.project.two_vago.models.entities.User;
+import personal.project.two_vago.models.entities.enums.RankNameEnum;
 import personal.project.two_vago.models.entities.enums.RoleNameEnum;
 import personal.project.two_vago.repository.UserRepository;
 
@@ -15,6 +16,7 @@ public class UserViewModel {
     private String number;
     private RoleNameEnum role;
     private int loginDays;
+    private RankNameEnum rank;
 
 
     public UserViewModel() {
@@ -90,5 +92,13 @@ public class UserViewModel {
 
     public void setLoginDays(int loginDays) {
         this.loginDays = loginDays;
+    }
+
+    public RankNameEnum getRank() {
+        return rank;
+    }
+
+    public void setRank(RankNameEnum rank) {
+        this.rank = rank;
     }
 }

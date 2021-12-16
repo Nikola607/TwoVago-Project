@@ -2,10 +2,7 @@ package personal.project.two_vago.init;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import personal.project.two_vago.service.CategoryService;
-import personal.project.two_vago.service.CityService;
-import personal.project.two_vago.service.OfferService;
-import personal.project.two_vago.service.UserService;
+import personal.project.two_vago.service.*;
 
 @Component
 public class DBInit implements CommandLineRunner {
@@ -23,6 +20,7 @@ public class DBInit implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        userService.initializeRanks();
         userService.initializeRoles();
         categoryService.initializeRoles();
         cityService.initializeRoles();

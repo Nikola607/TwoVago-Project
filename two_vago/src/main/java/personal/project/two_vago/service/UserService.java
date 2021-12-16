@@ -26,7 +26,7 @@ public interface UserService {
 
     void setLoggedIn();
 
-    void setLoggedInTrue(String name);
+    void loginPointSystem(String name);
 
-    void addLoginDay(String name);
+    void initializeRanks();
 }

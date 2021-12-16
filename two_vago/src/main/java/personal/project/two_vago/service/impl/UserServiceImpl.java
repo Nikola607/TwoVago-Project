@@ -7,21 +7,20 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import personal.project.two_vago.models.entities.Offer;
-import personal.project.two_vago.models.entities.Role;
-import personal.project.two_vago.models.entities.User;
+import personal.project.two_vago.models.entities.*;
+import personal.project.two_vago.models.entities.enums.RankNameEnum;
 import personal.project.two_vago.models.entities.enums.RoleNameEnum;
-import personal.project.two_vago.models.entities.view.OfferSummaryView;
 import personal.project.two_vago.models.entities.view.UserViewModel;
 import personal.project.two_vago.models.service.UserServiceModel;
 import personal.project.two_vago.repository.OfferRepository;
+import personal.project.two_vago.repository.RankRepository;
 import personal.project.two_vago.repository.RoleRepository;
 import personal.project.two_vago.repository.UserRepository;
 import personal.project.two_vago.service.UserService;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 @Component
 public class UserServiceImpl implements UserService {
@@ -31,19 +30,22 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final TwoVagoUserServiceImpl twoVagoUserService;
     private final OfferRepository offerRepository;
+    private final RankRepository rankRepository;
 
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, RoleRepository roleRepository, PasswordEncoder passwordEncoder, TwoVagoUserServiceImpl twoVagoUserService, OfferRepository offerRepository) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, RoleRepository roleRepository, PasswordEncoder passwordEncoder, TwoVagoUserServiceImpl twoVagoUserService, OfferRepository offerRepository, RankRepository rankRepository) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
         this.twoVagoUserService = twoVagoUserService;
         this.offerRepository = offerRepository;
+        this.rankRepository = rankRepository;
     }
 
     @Override
     public void registerAndLoginUser(UserServiceModel userRegistrationServiceModel) {
         Role userRole = roleRepository.findByRoleName(RoleNameEnum.USER);
+        Rank userRank = rankRepository.findByRankName(RankNameEnum.BEGINNER);
 
         User newUser = new User();
 
@@ -66,6 +68,7 @@ public class UserServiceImpl implements UserService {
                 .setNumber(userRegistrationServiceModel.getNumber());
 
         newUser.setLoginDays(0);
+        newUser.setRank(userRank);
 
         newUser = userRepository.save(newUser);
 
@@ -87,6 +90,20 @@ public class UserServiceImpl implements UserService {
         return "/images/profilePictures/" + random + ".png";
     }
 
+    @Override
+    public void initializeRanks() {
+        if (rankRepository.count() != 0) {
+            return;
+        }
+
+        Arrays.stream(RankNameEnum.values())
+                .forEach(rankNameEnum -> {
+                            Rank rank = new Rank();
+                            rank.setRankName(rankNameEnum);
+                            rankRepository.save(rank);
+                        }
+                );
+    }
 
     @Override
     public void initializeRoles() {
@@ -109,6 +126,7 @@ public class UserServiceImpl implements UserService {
         if (userRepository.count() == 0) {
 
             Role adminRole = roleRepository.findByRoleName(RoleNameEnum.ADMIN);
+            Rank adminRank = rankRepository.findByRankName(RankNameEnum.VETERAN);
 
             User admin = new User();
             admin
@@ -130,6 +148,7 @@ public class UserServiceImpl implements UserService {
 
             admin.setRole(adminRole);
             admin.setLoginDays(0);
+            admin.setRank(adminRank);
 
             userRepository.save(admin);
         }
@@ -137,9 +156,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserViewModel getViewModelByUsername(String name) {
-        addLoginDay(name);
-        setLoggedInTrue(name);
-
         return this.userRepository
                 .findByUsername(name)
                 .map(u -> this.modelMapper.map(u, UserViewModel.class))
@@ -151,30 +167,28 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByUsername(name).orElse(null);
         user.setProfilePic(getRandomProfilePic());
 
+        userRepository.save(user);
+
         return modelMapper.map(user, UserViewModel.class);
     }
 
     @Override
     public void setLoggedIn() {
-       userRepository
-               .findAll()
-               .forEach(u-> u.setWasLoggedInToday(true));
+        List<User> users = userRepository.findAll();
+        users.forEach(u-> u.setWasLoggedInToday(false));
+
+        userRepository.saveAll(users);
     }
 
     @Override
-    public void setLoggedInTrue(String name) {
+    public void loginPointSystem(String name) {
         User user = userRepository.findByUsername(name).orElse(null);
 
-        user.setWasLoggedInToday(true);
-    }
-
-    @Override
-    public void addLoginDay(String name) {
-        User user = userRepository.findByUsername(name).orElse(null);
-
-        if(!user.isWasLoggedInToday()) {
+        if (!user.isWasLoggedInToday()) {
             user.setLoginDays(user.getLoginDays() + 1);
         }
+        user.setWasLoggedInToday(true);
+        userRepository.save(user);
     }
 
 //    @Override

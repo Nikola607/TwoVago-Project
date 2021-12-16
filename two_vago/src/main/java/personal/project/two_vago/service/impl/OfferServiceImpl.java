@@ -60,6 +60,9 @@ public class OfferServiceImpl implements OfferService {
         newOffer.setCity(cityService.findByCityName(offerAddServiceModel.getCity()));
 
         Offer savedOffer = offerRepository.save(newOffer);
+
+        userService.loginPointSystem(userEntity.getUsername());
+
         return modelMapper.map(savedOffer, OfferServiceModel.class);
     }
 

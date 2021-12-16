@@ -20,7 +20,7 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String home(Model model) {
+    public String home(Principal principal, Model model) {
         model.addAttribute("offers",
                 offerService.getAllOffers());
         return "index";
