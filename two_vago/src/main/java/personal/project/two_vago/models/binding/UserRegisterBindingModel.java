@@ -1,13 +1,15 @@
 package personal.project.two_vago.models.binding;
 
-import personal.project.two_vago.models.entities.enums.RoleNameEnum;
+import personal.project.two_vago.models.validator.UniqueUserName;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 public class UserRegisterBindingModel {
 
+    @UniqueUserName
     private String username;
     private String password;
     private String confirmPassword;
@@ -19,8 +21,8 @@ public class UserRegisterBindingModel {
     public UserRegisterBindingModel() {
     }
 
+    @NotBlank
     @Size(min = 3, max = 20)
-
     public String getUsername() {
         return username;
     }

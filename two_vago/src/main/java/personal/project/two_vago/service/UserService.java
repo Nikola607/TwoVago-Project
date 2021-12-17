@@ -16,7 +16,7 @@ public interface UserService {
 
     User findById(Long id);
 
-    void registerAndLoginUser(UserServiceModel userRegistrationServiceModel);
+    boolean registerAndLoginUser(UserServiceModel userRegistrationServiceModel);
 
     void initializeUsers();
 
@@ -29,4 +29,6 @@ public interface UserService {
     void loginPointSystem(String name);
 
     void initializeRanks();
+
+    boolean isUserNameFree(String userName);
 }

@@ -12,84 +12,98 @@
 </head>
 
 <body>
-    <header th:replace="fragments/commons.html::nav"></header>
-    <form th:action="@{/users/register}" th:object="${userRegisterBindingModel}" th:method="post">
-        <div class="container">
+<header th:replace="fragments/commons.html::nav"></header>
+<form th:action="@{/users/register}" th:object="${userRegisterBindingModel}" th:method="post">
+    <div class="container">
 
-            <div class="col-sm-8 col-sm-offset-2 main">
-                <div class="col-sm-6 left-side">
-                    <h1>Hi!</h1>
-                    <p>We hope you enjoy your stay.</p>
-                    <br>
-                    <p>Already have an account?
-                        <a style="color:skyblue" href="/users/login">Login</a>
-                    </p>
-                </div>
-                <!--col-sm-6-->
+        <div class="col-sm-8 col-sm-offset-2 main">
+            <div class="col-sm-6 left-side">
+                <h1>Hi!</h1>
+                <p>We hope you enjoy your stay.</p>
+                <br>
+                <p>Already have an account?
+                    <a style="color:skyblue" href="/users/login">Login</a>
+                </p>
+            </div>
+            <!--col-sm-6-->
 
-                <div class="col-sm-6 right-side">
-                    <h1>Register</h1>
-                    <!--Form with header-->
-                    <div class="form">
-                        <div class="form-group">
-                            <label for="form2">Your username:</label>
-                            <input minlength="3" th:field="*{username}" th:errorclass="is-invalid" class="form-control"
-                                type="username" placeholder="Username (min=3 max=20)" name="username"
-                                aria-describedby="usernameHelpInline" id="username" required>
+            <div class="col-sm-6 right-side">
+                <h1>Register</h1>
+                <!--Form with header-->
+                <div class="form">
+                    <div class="form-group has-error">
+                        <label for="form2">Your username:</label>
+                        <input th:field="*{username}" th:errorclass="is-invalid"
+                               placeholder="Username (min=3 max=20)"
+                               type="text" id="username" class="form-control"/>
 
-                        </div>
-                        <div class="form-group">
-                            <label for="form2">Your Full Name:</label>
-                            <input minlength="5" th:field="*{fullName}" th:errorclass="is-invalid" class="form-control" type="text"
-                                placeholder="FullName (min=5)" name="fullName" aria-describedby="usernameHelpInline"
-                                id="fullName" required>
+                        <span class="asterisk_input">  </span>
+                        <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error-message">
+                            Invalid username or password.
+                        </p>
+                    </div>
 
-                        </div>
-                        <div class="form-group">
-                            <label for="form2">Your age:</label>
-                            <input minlength="3" th:field="*{age}" th:errorclass="is-invalid" class="form-control" type="text"
-                                placeholder="Age (must be positive number)" name="age" aria-describedby="usernameHelpInline" id="age" required>
-
-                        </div>
-                        <div class="form-group">
-                            <label for="form2">Your number:</label>
-                            <input minlength="5" th:field="*{number}" th:errorclass="is-invalid" class="form-control" type="text"
-                                   placeholder="Number (must be valid number)" name="number" aria-describedby="usernameHelpInline" id="number" required>
-
-                        </div>
-                        <div class="form-group">
-                            <label for="form2">Your email:</label>
-                            <input minlength="5" th:field="*{email}" th:errorclass="is-invalid" class="form-control" type="text"
-                                placeholder="Email (example@example.com)" name="email" aria-describedby="usernameHelpInline" id="email"
-                                required>
-                        </div>
-                        <div class="form-group">
-                            <label for="form2">Your password:</label>
-                            <input minlength="4" th:field="*{password}" th:errorclass="is-invalid" class="form-control"
-                                type="password" placeholder="Password (min=4)" name="password"
-                                aria-describedby="usernameHelpInline" id="password" required>
-
-                        </div>
-
-                        <div class="form-group">
-                            <input minlength="4" th:field="*{confirmPassword}" th:errorclass="is-invalid" class="form-control"
-                                aria-describedby="passwordHelpInline" type="password" placeholder="Confirm Password"
-                                name="confirmPassword" id="confPassword" required>
-                        </div>
-
-                        <button type="submit" class="loginbtn">Register</button>
+                    <div class="form-group">
+                        <label for="form2">Your Full Name:</label>
+                        <input minlength="5" th:field="*{fullName}" th:errorclass="is-invalid" class="form-control"
+                               type="text"
+                               placeholder="FullName (min=5)" name="fullName" aria-describedby="usernameHelpInline"
+                               id="fullName" required>
 
                     </div>
-                    <!--/Form with header-->
+                    <div class="form-group">
+                        <label for="form2">Your age:</label>
+                        <input minlength="" th:field="*{age}" th:errorclass="is-invalid" class="form-control"
+                               type="text"
+                               placeholder="Age (must be positive number)" name="age"
+                               aria-describedby="usernameHelpInline" id="age" required>
 
-                </div>
-                <!--col-sm-6-->
+                    </div>
+                    <div class="form-group">
+                        <label for="form2">Your number:</label>
+                        <input minlength="5" th:field="*{number}" th:errorclass="is-invalid" class="form-control"
+                               type="text"
+                               placeholder="Number (must be valid number)" name="number"
+                               aria-describedby="usernameHelpInline" id="number" required>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="form2">Your email:</label>
+                        <input minlength="5" th:field="*{email}" th:errorclass="is-invalid" class="form-control"
+                               type="text"
+                               placeholder="Email (example@example.com)" name="email"
+                               aria-describedby="usernameHelpInline" id="email"
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label for="form2">Your password:</label>
+                        <input minlength="4" th:field="*{password}" th:errorclass="is-invalid" class="form-control"
+                               type="password" placeholder="Password (min=4)" name="password" id="password" required>
+                        <span class="asterisk_input">  </span>
+                        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message">
+                            Invalid password.
+                        </p>
+                    </div>
+
+                    <div class="form-group">
+                        <input minlength="4" th:field="*{confirmPassword}" th:errorclass="is-invalid"
+                               class="form-control"
+                               aria-describedby="confirmPasswordError" type="password" placeholder="Confirm Password"
+                               name="confirmPassword" id="confPassword" required>
+                    </div>
 
             </div>
-            <!--col-sm-8-->
+            <button type="submit" class="loginbtn">Register</button>
+            <!--/Form with header-->
+
+            </div>
+            <!--col-sm-6-->
 
         </div>
-    </form>
+        <!--col-sm-8-->
+
+    </div>
+</form>
 </body>
 
 </html>

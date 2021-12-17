@@ -46,7 +46,7 @@ public class OfferController {
             redirect.addFlashAttribute("offerAddBindingModel", offerAddBindingModel);
             redirect.addFlashAttribute("org.springframework.validation.BindingResult.offerAddBindingModel", bindingResult);
             redirect.addFlashAttribute("offers", offerService.getAllOffers());
-            return "redirect:/add";
+            return "redirect:add";
         }
 
         OfferServiceModel offerServiceModel = offerService.addOffer(offerAddBindingModel, user.getUserIdentifier());
@@ -82,8 +82,9 @@ public class OfferController {
 
             redirectAttributes.addFlashAttribute("offerModel", offerModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.offerModel", bindingResult);
+            redirectAttributes.addFlashAttribute("offers", offerService.getAllOffers());
 
-            return "redirect:/" + id + "/edit/errors";
+            return "redirect:/offers/" + id + "/edit";
         }
 
         OfferServiceModel serviceModel = modelMapper.map(offerModel,

@@ -78,6 +78,35 @@ padding-left: 80px; */
     box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.24);
 }
 
+.invalid-feedback {
+    display: none;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.875em;
+    color: #dc3545;
+}
+
+.asterisk_input::after {
+    color: #e32;
+    position: absolute;
+    margin: 0px 0px 0px -20px;
+    font-size: xx-large;
+}
+
+.error-message {
+    color: red !important;
+}
+
+.form-text {
+    margin-top: 0.25rem;
+    font-size: 0.875em;
+    color: #6c757d;
+}
+
+.rounded {
+    border-radius: 0.25rem !important;
+}
+
 @keyframes FadeIn {
     0% {
         opacity: 0;

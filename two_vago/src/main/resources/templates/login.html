@@ -12,54 +12,54 @@
 </head>
 
 <body>
-    <header th:replace="fragments/commons.html::nav"></header>
-    <form th:action="@{/users/login}" th:object="${userLoginBindingModel}" th:method="post">
-        <div class="container">
+<header th:replace="fragments/commons.html::nav"></header>
+<form th:action="@{/users/login}" th:object="${userLoginBindingModel}" th:method="post">
+    <div class="container">
 
-            <div class="col-sm-8 col-sm-offset-2 main">
-                <div class="col-sm-6 left-side">
-                    <h1>Hi<br>again!</h1>
-                    <p>We hope you enjoy your stay.</p>
-                    <br>
-                    <p>Don't have an account?
-                        <a style="color:skyblue" href="/users/register">Register</a>
-                    </p>
-                </div>
-                <!--col-sm-6-->
+        <div class="col-sm-8 col-sm-offset-2 main">
+            <div class="col-sm-6 left-side">
+                <h1>Hi<br>again!</h1>
+                <p>We hope you enjoy your stay.</p>
+                <br>
+                <p>Don't have an account?
+                    <a style="color:skyblue" href="/users/register">Register</a>
+                </p>
+            </div>
+            <!--col-sm-6-->
 
-                <div class="col-sm-6 right-side">
-                    <h1>Login</h1>
-                    <!--Form with header-->
-                    <div class="form">
-                        <div class="form-group">
-                            <label for="form2">Your username:</label>
-                            <input th:field="*{username}" th:errorclass="is-invalid" class="form-control" type="text"
-                                placeholder="Username" name="username" aria-describedby="usernameHelpInline"
-                                id="username" required>
-
-                        </div>
-
-                        <div class="form-group">
-                            <label for="form4">Your password:</label>
-                            <input th:field="*{password}" th:errorclass="is-invalid" class="form-control"
-                                aria-describedby="passwordHelpInline" type="password" placeholder="Password" name="psw"
-                                id="psw" required>
-
-                        </div>
-
-                        <button type="submit" class="loginbtn">Login</button>
+            <div class="col-sm-6 right-side">
+                <h1>Login</h1>
+                <!--Form with header-->
+                <div class="form">
+                    <div class="form-group">
+                        <label for="form2">Your username:</label>
+                        <input th:field="*{username}" th:errorclass="is-invalid" class="form-control" type="text"
+                               placeholder="Username" name="username"
+                               id="username" required>
 
                     </div>
-                    <!--/Form with header-->
-
+                    <div class="form-group">
+                        <label for="form4">Your password:</label>
+                        <input th:field="*{password}" th:errorclass="is-invalid" class="form-control"
+                               type="password" placeholder="Password" name="psw"
+                               id="psw" required>
+                    </div>
+                    <br>
+                    <button type="submit" class="loginbtn">Login</button>
+                    <p th:if="${bad_credentials}" class="error-message">
+                        Invalid username or password.
+                    </p>
                 </div>
-                <!--col-sm-6-->
+                <!--/Form with header-->
 
             </div>
-            <!--col-sm-8-->
+            <!--col-sm-6-->
 
         </div>
-    </form>
+        <!--col-sm-8-->
+
+    </div>
+</form>
 </body>
 
 </html>

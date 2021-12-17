@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void registerAndLoginUser(UserServiceModel userRegistrationServiceModel) {
+    public boolean registerAndLoginUser(UserServiceModel userRegistrationServiceModel) {
         Role userRole = roleRepository.findByRoleName(RoleNameEnum.USER);
         Rank userRank = rankRepository.findByRankName(RankNameEnum.BEGINNER);
 
@@ -70,7 +70,11 @@ public class UserServiceImpl implements UserService {
         newUser.setLoginDays(0);
         newUser.setRank(userRank);
 
-        newUser = userRepository.save(newUser);
+        try {
+            newUser = userRepository.save(newUser);
+        } catch (Exception e) {
+            return false;
+        }
 
         // this is the Spring representation of a user
         UserDetails principal = twoVagoUserService.loadUserByUsername(newUser.getUsername());
@@ -83,6 +87,7 @@ public class UserServiceImpl implements UserService {
         SecurityContextHolder.
                 getContext().
                 setAuthentication(authentication);
+        return true;
     }
 
     private String getRandomProfilePic() {
@@ -103,6 +108,11 @@ public class UserServiceImpl implements UserService {
                             rankRepository.save(rank);
                         }
                 );
+    }
+
+    @Override
+    public boolean isUserNameFree(String userName) {
+        return userRepository.findByUsernameIgnoreCase(userName.toLowerCase()).isEmpty();
     }
 
     @Override

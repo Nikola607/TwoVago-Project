@@ -3,6 +3,7 @@ package personal.project.two_vago.models.binding;
 import personal.project.two_vago.models.entities.enums.CategoryNameEnum;
 import personal.project.two_vago.models.entities.enums.CityNameEnum;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
@@ -12,7 +13,9 @@ public class OfferAddBindingModel {
     private BigDecimal price;
     private String picture;
     private String description;
+    @NotNull(message = "you must select a category")
     private CategoryNameEnum category;
+    @NotNull(message = "you must select a city")
     private CityNameEnum city;
 
     public OfferAddBindingModel() {
@@ -54,7 +57,6 @@ public class OfferAddBindingModel {
         this.description = description;
     }
 
-    @NotNull
     public CategoryNameEnum getCategory() {
         return category;
     }
@@ -63,7 +65,6 @@ public class OfferAddBindingModel {
         this.category = category;
     }
 
-    @NotNull
     public CityNameEnum getCity() {
         return city;
     }

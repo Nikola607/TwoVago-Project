@@ -1,6 +1,7 @@
 package personal.project.two_vago.web;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -86,6 +87,18 @@ public class UserController {
                 .map(userRegisterBindingModel, UserServiceModel.class));
 
         return "redirect:/";
+    }
+
+    @PostMapping("/login-error")
+    public String failedLogin(
+            @ModelAttribute(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
+                    String userName,
+            RedirectAttributes attributes) {
+
+        attributes.addFlashAttribute("bad_credentials", true);
+        attributes.addFlashAttribute("username", userName);
+
+        return "redirect:login";
     }
 
     @ModelAttribute
