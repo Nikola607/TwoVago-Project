@@ -147,7 +147,7 @@ public class UserServiceImpl implements UserService {
                     .setNumber("088420420");
 
             admin.setRole(adminRole);
-            admin.setLoginDays(0);
+            admin.setLoginDays(30);
             admin.setRank(adminRank);
 
             userRepository.save(admin);

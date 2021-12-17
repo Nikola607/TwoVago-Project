@@ -5,17 +5,16 @@ import org.springframework.stereotype.Component;
 import personal.project.two_vago.models.binding.OfferAddBindingModel;
 import personal.project.two_vago.models.entities.Category;
 import personal.project.two_vago.models.entities.Offer;
+import personal.project.two_vago.models.entities.Rank;
 import personal.project.two_vago.models.entities.User;
 import personal.project.two_vago.models.entities.enums.CategoryNameEnum;
 import personal.project.two_vago.models.entities.enums.CityNameEnum;
+import personal.project.two_vago.models.entities.enums.RankNameEnum;
 import personal.project.two_vago.models.entities.enums.RoleNameEnum;
 import personal.project.two_vago.models.entities.view.OfferDetailsView;
 import personal.project.two_vago.models.entities.view.OfferSummaryView;
 import personal.project.two_vago.models.service.OfferServiceModel;
-import personal.project.two_vago.repository.CategoryRepository;
-import personal.project.two_vago.repository.CityRepository;
-import personal.project.two_vago.repository.OfferRepository;
-import personal.project.two_vago.repository.UserRepository;
+import personal.project.two_vago.repository.*;
 import personal.project.two_vago.service.CategoryService;
 import personal.project.two_vago.service.CityService;
 import personal.project.two_vago.service.OfferService;
@@ -37,8 +36,9 @@ public class OfferServiceImpl implements OfferService {
     private final CityRepository cityRepository;
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
+    private final RankRepository rankRepository;
 
-    public OfferServiceImpl(ModelMapper modelMapper, CategoryService categoryService, CityService cityService, UserService userService, OfferRepository offerRepository, CityRepository cityRepository, CategoryRepository categoryRepository, UserRepository userRepository) {
+    public OfferServiceImpl(ModelMapper modelMapper, CategoryService categoryService, CityService cityService, UserService userService, OfferRepository offerRepository, CityRepository cityRepository, CategoryRepository categoryRepository, UserRepository userRepository, RankRepository rankRepository) {
         this.modelMapper = modelMapper;
         this.categoryService = categoryService;
         this.cityService = cityService;
@@ -47,6 +47,7 @@ public class OfferServiceImpl implements OfferService {
         this.cityRepository = cityRepository;
         this.categoryRepository = categoryRepository;
         this.userRepository = userRepository;
+        this.rankRepository = rankRepository;
     }
 
     @Override
@@ -105,6 +106,26 @@ public class OfferServiceImpl implements OfferService {
                 .stream()
                 .map(this::map)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void updateRank(String name) {
+        User user = userRepository.findByUsername(name).orElse(null);
+        Rank rank = new Rank();
+
+        switch (user.getLoginDays()) {
+            case 10:
+                rank.setRankName(RankNameEnum.ADVANCED);
+                user.setRank(rank);
+                break;
+            case 30:
+                rank.setRankName(RankNameEnum.VETERAN);
+                user.setRank(rank);
+                break;
+        }
+
+        rankRepository.save(rank);
+        userRepository.save(user);
     }
 
     @Override

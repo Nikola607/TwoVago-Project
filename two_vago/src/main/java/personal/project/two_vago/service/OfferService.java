@@ -31,4 +31,6 @@ public interface OfferService {
     List<OfferSummaryView> getOffersByUser(String name);
 
     List<OfferSummaryView> getAllOffersByCategory(CategoryNameEnum name);
+
+    void updateRank(String name);
 }

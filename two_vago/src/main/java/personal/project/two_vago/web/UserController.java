@@ -56,6 +56,7 @@ public class UserController {
 
         model.addAttribute("userViewModel", viewModel);
         model.addAttribute("userOffers", offersByUser);
+        offerService.updateRank(principal.getName());
 
         return "profile";
     }
