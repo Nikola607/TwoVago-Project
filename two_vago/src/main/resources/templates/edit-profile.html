@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Edit Profile - twovago</title>
+    <link rel="icon" href="/images/twovago-icon.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/register_styles.css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/css/navigation_styles.css">
+</head>
+
+<body>
+<header th:replace="fragments/commons.html::nav"></header>
+<form th:action="@{/users/{id}/edit(id=*{id})}" th:object="${userModel}" th:method="post">
+    <div class="container">
+
+        <div class="col-sm-8 col-sm-offset-2 main">
+            <!--col-sm-6-->
+
+            <div class="col-sm-6 right-side">
+                <h1>Edit Profile</h1>
+                <!--Form with header-->
+                <div class="form">
+                    <div class="form-group has-error">
+<!--                        <label for="form2">Your username:</label>-->
+<!--                        <input th:field="*{username}" th:errorclass="is-invalid"-->
+<!--                               placeholder="Username (min=3 max=20)"-->
+<!--                               type="text" id="username" class="form-control"/>-->
+
+<!--                        <span class="asterisk_input">  </span>-->
+<!--                        <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error-message">-->
+<!--                            Invalid username or password.-->
+<!--                        </p>-->
+<!--                    </div>-->
+
+                    <div class="form-group">
+                        <label for="form2">Your Full Name:</label>
+                        <input minlength="5" th:field="*{fullName}" th:errorclass="is-invalid" class="form-control"
+                               type="text"
+                               placeholder="FullName (min=5)" name="fullName" aria-describedby="usernameHelpInline"
+                               id="fullName" required>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="form2">Your age:</label>
+                        <input minlength="" th:field="*{age}" th:errorclass="is-invalid" class="form-control"
+                               type="text"
+                               placeholder="Age (must be positive number)" name="age"
+                               aria-describedby="usernameHelpInline" id="age" required>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="form2">Your number:</label>
+                        <input minlength="5" th:field="*{number}" th:errorclass="is-invalid" class="form-control"
+                               type="text"
+                               placeholder="Number (must be valid number)" name="number"
+                               aria-describedby="usernameHelpInline" id="number" required>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="form2">Your email:</label>
+                        <input minlength="5" th:field="*{email}" th:errorclass="is-invalid" class="form-control"
+                               type="text"
+                               placeholder="Email (example@example.com)" name="email"
+                               aria-describedby="usernameHelpInline" id="email"
+                               required>
+                    </div>
+
+                </div>
+                <button type="submit" class="loginbtn">Edit</button>
+                <!--/Form with header-->
+
+            </div>
+            <!--col-sm-6-->
+
+        </div>
+        <!--col-sm-8-->
+
+    </div>
+</form>
+</body>
+
+</html>

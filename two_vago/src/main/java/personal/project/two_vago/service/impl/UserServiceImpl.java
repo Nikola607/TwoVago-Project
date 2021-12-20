@@ -17,10 +17,12 @@ import personal.project.two_vago.repository.RankRepository;
 import personal.project.two_vago.repository.RoleRepository;
 import personal.project.two_vago.repository.UserRepository;
 import personal.project.two_vago.service.UserService;
+import personal.project.two_vago.web.exceptions.ObjectNotFoundException;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Component
 public class UserServiceImpl implements UserService {
@@ -116,6 +118,37 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserViewModel> getAllUsers() {
+
+        return userRepository.findAll()
+                .stream()
+                .map(user -> modelMapper.map(user, UserViewModel.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void updateUser(UserServiceModel serviceModel) {
+        User user =
+                userRepository.findById(serviceModel.getId()).orElseThrow(() ->
+                        new ObjectNotFoundException(serviceModel.getId()));
+
+        user.setUsername(serviceModel.getUsername());
+        user.setFullName(serviceModel.getFullName());
+        user.setAge(serviceModel.getAge());
+        user.setNumber(serviceModel.getNumber());
+        user.setEmail(serviceModel.getEmail());
+        user.setPassword(serviceModel.getPassword());
+
+        userRepository.save(user);
+    }
+
+    @Override
+    public UserViewModel findByIdViewModel(Long id) {
+        return modelMapper.map(userRepository.findById(id).orElse(null), UserViewModel.class);
+
+    }
+
+    @Override
     public void initializeRoles() {
         if (roleRepository.count() != 0) {
             return;
@@ -185,7 +218,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void setLoggedIn() {
         List<User> users = userRepository.findAll();
-        users.forEach(u-> u.setWasLoggedInToday(false));
+        users.forEach(u -> u.setWasLoggedInToday(false));
 
         userRepository.saveAll(users);
     }

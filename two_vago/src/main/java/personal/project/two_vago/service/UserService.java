@@ -31,4 +31,10 @@ public interface UserService {
     void initializeRanks();
 
     boolean isUserNameFree(String userName);
+
+    List<UserViewModel> getAllUsers();
+
+    void updateUser(UserServiceModel serviceModel);
+
+    UserViewModel findByIdViewModel(Long id);
 }

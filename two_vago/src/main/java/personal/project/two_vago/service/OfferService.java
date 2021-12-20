@@ -6,6 +6,7 @@ import personal.project.two_vago.models.entities.enums.CategoryNameEnum;
 import personal.project.two_vago.models.entities.view.OfferDetailsView;
 import personal.project.two_vago.models.entities.view.OfferSummaryView;
 import personal.project.two_vago.models.service.OfferServiceModel;
+import personal.project.two_vago.models.service.UserServiceModel;
 
 import java.util.List;
 

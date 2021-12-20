@@ -14,6 +14,7 @@ import personal.project.two_vago.models.entities.enums.RoleNameEnum;
 import personal.project.two_vago.models.entities.view.OfferDetailsView;
 import personal.project.two_vago.models.entities.view.OfferSummaryView;
 import personal.project.two_vago.models.service.OfferServiceModel;
+import personal.project.two_vago.models.service.UserServiceModel;
 import personal.project.two_vago.repository.*;
 import personal.project.two_vago.service.CategoryService;
 import personal.project.two_vago.service.CityService;
